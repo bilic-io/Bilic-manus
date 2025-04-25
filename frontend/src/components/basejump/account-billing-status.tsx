@@ -52,12 +52,12 @@ export default async function AccountBillingStatus({ accountId, returnUrl }: Pro
 
     let totalSeconds = 0;
     if (agentRunData) {
-        totalSeconds = agentRunData.reduce((acc, run) => {
-            const start = new Date(run.started_at);
-            const end = run.completed_at ? new Date(run.completed_at) : new Date();
-            const seconds = (end.getTime() - start.getTime()) / 1000;
-            return acc + seconds;
-        }, 0);
+        // totalSeconds = agentRunData.reduce((acc, run) => {
+        //     const start = new Date(run.started_at);
+        //     const end = run.completed_at ? new Date(run.completed_at) : new Date();
+        //     const seconds = (end.getTime() - start.getTime()) / 1000;
+        //     return acc + seconds;
+        // }, 0);
     }
 
     const hours = Math.floor(totalSeconds / 3600);

@@ -1,6 +1,6 @@
 streamlit-quill
 python-dotenv
-litellm
+litellm==1.28.3
 click
 questionary
 requests

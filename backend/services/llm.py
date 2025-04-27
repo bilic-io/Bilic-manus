@@ -22,6 +22,7 @@ import traceback
 
 # litellm.set_verbose=True
 litellm.modify_params=True
+litellm.drop_params=True
 
 # Constants
 MAX_RETRIES = 3

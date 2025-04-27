@@ -30,10 +30,10 @@ export function UseCasesSection() {
     >
       <SectionHeader>
         <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-center text-balance">
-          See Suna in action
+          See Neo 🪄 in action
         </h2>
         <p className="text-muted-foreground text-center text-balance font-medium">
-          Explore real-world examples of how Suna completes complex tasks autonomously
+          Explore real-world examples of how Neo 🪄 completes complex tasks autonomously
         </p>
       </SectionHeader>
 
@@ -64,8 +64,8 @@ export function UseCasesSection() {
                 <div className="w-full h-[160px] bg-accent/10">
                   <div className="relative w-full h-full overflow-hidden">
                     <img 
-                      src={useCase.image || `https://placehold.co/800x400/f5f5f5/666666?text=Suna+${useCase.title.split(' ').join('+')}`}
-                      alt={`Suna ${useCase.title}`}
+                      src={useCase.image || `https://placehold.co/800x400/f5f5f5/666666?text=Neo 🪄+${useCase.title.split(' ').join('+')}`}
+                      alt={`Neo 🪄 ${useCase.title}`}
                       className="w-full h-full object-cover"
                     />
                     <a

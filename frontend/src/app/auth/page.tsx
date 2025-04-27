@@ -213,8 +213,8 @@ function LoginContent() {
               {/* Success content */}
               <div className="relative z-10 pt-24 pb-8 max-w-xl mx-auto h-full w-full flex flex-col gap-2 items-center justify-center">
                 <div className="flex flex-col items-center text-center">
-                  <div className="bg-green-50 dark:bg-green-950/20 rounded-full p-4 mb-6">
-                    <MailCheck className="h-12 w-12 text-green-500 dark:text-green-400" />
+                  <div className="bg-blue-50 dark:bg-blue-950/20 rounded-full p-4 mb-6">
+                    <MailCheck className="h-12 w-12 text-blue-500 dark:text-blue-400" />
                   </div>
                   
                   <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-center text-balance text-primary mb-4">
@@ -229,8 +229,8 @@ function LoginContent() {
                     {registrationEmail || "your email address"}
                   </p>
                   
-                  <div className="bg-green-50 dark:bg-green-950/20 border border-green-100 dark:border-green-900/50 rounded-lg p-6 mb-8 max-w-md w-full">
-                    <p className="text-sm text-green-800 dark:text-green-400 leading-relaxed">
+                  <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/50 rounded-lg p-6 mb-8 max-w-md w-full">
+                    <p className="text-sm text-blue-800 dark:text-blue-400 leading-relaxed">
                       Click the link in the email to activate your account. If you don't see the email, check your spam folder.
                     </p>
                   </div>
@@ -324,7 +324,7 @@ function LoginContent() {
               </Link>
               
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-center text-balance text-primary">
-                {isSignUp ? "Join Suna" : "Welcome back"}
+                {isSignUp ? "Join Neo 🪄" : "Welcome back"}
               </h1>
               <p className="text-base md:text-lg text-center text-muted-foreground font-medium text-balance leading-relaxed tracking-tight mt-2 mb-6">
                 {isSignUp ? "Create your account and start building with AI" : "Sign in to your account to continue"}
@@ -492,11 +492,11 @@ function LoginContent() {
             {forgotPasswordStatus.message && (
               <div className={`p-4 rounded-lg flex items-center gap-3 ${
                 forgotPasswordStatus.success 
-                  ? "bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900/50 text-green-800 dark:text-green-400" 
+                  ? "bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/50 text-blue-800 dark:text-blue-400" 
                   : "bg-secondary/10 border border-secondary/20 text-secondary"
               }`}>
                 {forgotPasswordStatus.success ? (
-                  <CheckCircle className="h-5 w-5 flex-shrink-0 text-green-500 dark:text-green-400" />
+                  <CheckCircle className="h-5 w-5 flex-shrink-0 text-blue-500 dark:text-blue-400" />
                 ) : (
                   <AlertCircle className="h-5 w-5 flex-shrink-0 text-secondary" />
                 )}

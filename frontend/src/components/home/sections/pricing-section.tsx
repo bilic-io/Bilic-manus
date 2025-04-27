@@ -139,7 +139,7 @@ export function PricingSection() {
               Fork the repository and follow our step-by-step setup guide to deploy on your own infrastructure.
             </p>
             <Link 
-              href="https://github.com/Kortix-ai/Suna" 
+              href="https://github.com/-ai/Neo 🪄" 
               target="_blank"
               className="text-sm text-primary flex items-center gap-1 mt-auto"
             >
@@ -225,7 +225,7 @@ export function PricingSection() {
         
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
           <Link 
-            href="https://github.com/Kortix-ai/Suna" 
+            href="https://github.com/-ai/Neo 🪄" 
             target="_blank" 
             className="inline-flex h-11 items-center justify-center gap-2 text-sm font-medium tracking-wide rounded-full bg-primary text-white px-6 shadow-md hover:bg-primary/90 transition-all"
           >
@@ -253,7 +253,7 @@ export function PricingSection() {
           General Intelligence available today
         </h2>
         <p className="text-muted-foreground text-center text-balance font-medium">
-          You can self-host Suna or use our cloud for managed service.
+          You can self-host Neo 🪄 or use our cloud for managed service.
         </p>
       </SectionHeader>
       <div className="relative w-full h-full">
@@ -299,7 +299,7 @@ export function PricingSection() {
                 </div>
 
                 <div className="flex flex-col gap-2 p-4">
-                  {tier.buttonText === "Hire Suna" ? (
+                  {tier.buttonText === "Hire Neo 🪄" ? (
                     <Link 
                       href="/auth"
                       className={`h-10 w-full flex items-center justify-center text-sm font-normal tracking-wide rounded-full px-4 cursor-pointer transition-all ease-out active:scale-95 ${

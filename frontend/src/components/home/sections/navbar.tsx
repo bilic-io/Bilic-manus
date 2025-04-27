@@ -100,8 +100,8 @@ export function Navbar() {
   const toggleDrawer = () => setIsDrawerOpen((prev) => !prev);
   const handleOverlayClick = () => setIsDrawerOpen(false);
 
-  const logoSrc = !mounted ? "/kortix-logo.svg" : 
-    (resolvedTheme === "dark" ? "/kortix-logo-white.svg" : "/kortix-logo.svg");
+  const logoSrc = !mounted ? "/logo.svg" : 
+    (resolvedTheme === "dark" ? "/logo.svg" : "/logo.svg");
 
   return (
     <header
@@ -127,8 +127,8 @@ export function Navbar() {
             <Link href="/" className="flex items-center gap-3">
               <Image 
                 src={logoSrc} 
-                alt="Kortix Logo" 
-                width={140} 
+                alt=" Logo" 
+                width={60} 
                 height={22} 
                 priority
               />
@@ -140,7 +140,7 @@ export function Navbar() {
               <div className="flex items-center space-x-3">
 
                 {/* <Link
-                  href="https://github.com/kortix-ai/suna"
+                  href="https://github.com/-ai/Neo 🪄"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hidden md:flex items-center justify-center h-8 px-3 text-sm font-normal tracking-wide rounded-full text-primary hover:text-primary/80 transition-colors"
@@ -160,7 +160,7 @@ export function Navbar() {
                     className="bg-secondary h-8 hidden md:flex items-center justify-center text-sm font-normal tracking-wide rounded-full text-primary-foreground dark:text-secondary-foreground w-fit px-4 shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_3px_3px_-1.5px_rgba(16,24,40,0.06),0_1px_1px_rgba(16,24,40,0.08)] border border-white/[0.12]"
                     href="/auth"
                   >
-                    Hire Suna
+                    Hire Neo 🪄
                   </Link>
                 )}
               </div>
@@ -207,12 +207,12 @@ export function Navbar() {
                   <Link href="/" className="flex items-center gap-3">
                     <Image 
                       src={logoSrc} 
-                      alt="Kortix Logo" 
+                      alt=" Logo" 
                       width={120} 
                       height={22} 
                       priority
                     />
-                    <span className="font-medium text-primary text-sm">/ Suna</span>
+                    <span className="font-medium text-primary text-sm">/ Neo 🪄</span>
                   </Link>
                   <button
                     onClick={toggleDrawer}
@@ -270,7 +270,7 @@ export function Navbar() {
                       href="/auth"
                       className="bg-secondary h-8 flex items-center justify-center text-sm font-normal tracking-wide rounded-full text-primary-foreground dark:text-secondary-foreground w-full px-4 shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_3px_3px_-1.5px_rgba(16,24,40,0.06),0_1px_1px_rgba(16,24,40,0.08)] border border-white/[0.12] hover:bg-secondary/80 transition-all ease-out active:scale-95"
                     >
-                      Hire Suna
+                      Hire Neo 🪄
                     </Link>
                   )}
                   <div className="flex justify-between">

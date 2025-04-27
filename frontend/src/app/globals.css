@@ -500,7 +500,7 @@
     & .hljs-template-variable,
     & .hljs-type,
     & .hljs-addition {
-      color: theme('colors.green.400');
+      color: theme('colors.blue.400');
     }
 
     & .hljs-comment,

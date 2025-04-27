@@ -29,9 +29,9 @@ export const Highlight = ({
 export const BLUR_FADE_DELAY = 0.15;
 
 export const siteConfig = {
-  name: "Kortix Suna",
+  name: " Neo 🪄",
   description: "The Generalist AI Agent that can act on your behalf.",
-  cta: "Hire Suna",
+  cta: "Hire Neo 🪄",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   keywords: [
     "AI Agent",
@@ -40,11 +40,11 @@ export const siteConfig = {
     "Autonomous Agent",
   ],
   links: {
-    email: "support@kortix.ai",
-    twitter: "https://x.com/kortixai",
-    discord: "https://discord.gg/kortixai",
-    github: "https://github.com/Kortix-ai/Suna",
-    instagram: "https://instagram.com/kortixai",
+    email: "support@.ai",
+    twitter: "https://x.com/ai",
+    discord: "https://discord.gg/ai",
+    github: "https://github.com/-ai/Neo 🪄",
+    instagram: "https://instagram.com/ai",
   },
   nav: {
     links: [
@@ -70,17 +70,17 @@ export const siteConfig = {
       </svg>
     ),
     badge: "100% OPEN SOURCE",
-    githubUrl: "https://github.com/kortix-ai/suna",
-    title: "Suna, the AI Employee.",
-    description: "Suna by Kortix – is a generalist AI Agent that acts on your behalf.",
-    inputPlaceholder: "Ask Suna to...",
+    githubUrl: "https://github.com/-ai/Neo 🪄",
+    title: "Neo 🪄, the AI Employee.",
+    description: "Neo 🪄 by  – is a generalist AI Agent that acts on your behalf.",
+    inputPlaceholder: "Ask Neo 🪄 to...",
   },
   cloudPricingItems: [
     {
       name: "Free",
       price: "$0",
       description: "For individual use and exploration",
-      buttonText: "Hire Suna",
+      buttonText: "Hire Neo 🪄",
       buttonColor: "bg-secondary text-white",
       isPopular: false,
       hours: "10 minutes",
@@ -96,7 +96,7 @@ export const siteConfig = {
       name: "Pro",
       price: "$29",
       description: "For professionals and small teams",
-      buttonText: "Hire Suna",
+      buttonText: "Hire Neo 🪄",
       buttonColor: "bg-primary text-white dark:text-black",
       isPopular: true,
       hours: "4 hours",
@@ -113,7 +113,7 @@ export const siteConfig = {
       name: "Enterprise",
       price: "$199",
       description: "For organizations with complex needs",
-      buttonText: "Hire Suna",
+      buttonText: "Hire Neo 🪄",
       buttonColor: "bg-secondary text-white",
       isPopular: false,
       hours: "40 hours",
@@ -331,15 +331,15 @@ export const siteConfig = {
     ],
   },
   featureSection: {
-    title: "How Kortix Suna Works",
+    title: "How  Neo 🪄 Works",
     description:
-      "Discover how Kortix Suna transforms your commands into action in four easy steps",
+      "Discover how  Neo 🪄 transforms your commands into action in four easy steps",
     items: [
       {
         id: 1,
         title: "Request an Action",
         content:
-          "Speak or type your command—let Kortix Suna capture your intent. Your request instantly sets the process in motion.",
+          "Speak or type your command—let  Neo 🪄 capture your intent. Your request instantly sets the process in motion.",
         image:
           "https://images.unsplash.com/photo-1720371300677-ba4838fa0678?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
@@ -347,7 +347,7 @@ export const siteConfig = {
         id: 2,
         title: "AI Understanding & Planning",
         content:
-          "Suna analyzes your request, understands the context, and develops a structured plan to complete the task efficiently.",
+          "Neo 🪄 analyzes your request, understands the context, and develops a structured plan to complete the task efficiently.",
         image:
           "https://images.unsplash.com/photo-1686170287433-c95faf6d3608?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8fA%3D%3D",
       },
@@ -355,7 +355,7 @@ export const siteConfig = {
         id: 3,
         title: "Autonomous Execution",
         content:
-          "Using its capabilities and integrations, Suna executes the task independently, handling any complexities along the way.",
+          "Using its capabilities and integrations, Neo 🪄 executes the task independently, handling any complexities along the way.",
         image:
           "https://images.unsplash.com/photo-1720378042271-60aff1e1c538?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D",
       },
@@ -363,30 +363,30 @@ export const siteConfig = {
         id: 4,
         title: "Results & Learning",
         content:
-          "Suna delivers results and learns from each interaction, continuously improving its performance to better serve your needs.",
+          "Neo 🪄 delivers results and learns from each interaction, continuously improving its performance to better serve your needs.",
         image:
           "https://images.unsplash.com/photo-1666882990322-e7f3b8df4f75?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D",
       },
     ],
   },
   bentoSection: {
-    title: "Empower Your Workflow with Kortix Suna",
+    title: "Empower Your Workflow with  Neo 🪄",
     description:
-      "Let Kortix Suna act on your behalf with advanced AI capabilities, seamless integrations, and autonomous task execution.",
+      "Let  Neo 🪄 act on your behalf with advanced AI capabilities, seamless integrations, and autonomous task execution.",
     items: [
       {
         id: 1,
         content: <FirstBentoAnimation />,
         title: "Autonomous Task Execution",
         description:
-          "Experience true automation with Suna. Ask your AI Agent to complete tasks, research information, and handle complex workflows with minimal supervision.",
+          "Experience true automation with Neo 🪄. Ask your AI Agent to complete tasks, research information, and handle complex workflows with minimal supervision.",
       },
       {
         id: 2,
         content: <SecondBentoAnimation />,
         title: "Seamless Integrations",
         description:
-          "Connect Suna to your existing tools for a unified workflow. Boost productivity through AI-powered interconnected systems.",
+          "Connect Neo 🪄 to your existing tools for a unified workflow. Boost productivity through AI-powered interconnected systems.",
       },
       {
         id: 3,
@@ -400,21 +400,21 @@ export const siteConfig = {
         ),
         title: "Intelligent Data Analysis",
         description:
-          "Transform raw data into actionable insights in seconds. Make better decisions with Suna's real-time, adaptive intelligence.",
+          "Transform raw data into actionable insights in seconds. Make better decisions with Neo 🪄's real-time, adaptive intelligence.",
       },
       {
         id: 4,
         content: <FourthBentoAnimation once={false} />,
         title: "Complete Customization",
         description:
-          "Tailor Suna to your specific needs. As an open source solution, you have full control over its capabilities, integrations, and implementation.",
+          "Tailor Neo 🪄 to your specific needs. As an open source solution, you have full control over its capabilities, integrations, and implementation.",
       },
     ],
   },
   benefits: [
     {
       id: 1,
-      text: "Automate everyday tasks with Suna's powerful AI capabilities.",
+      text: "Automate everyday tasks with Neo 🪄's powerful AI capabilities.",
       image: "/Device-6.png",
     },
     {
@@ -424,7 +424,7 @@ export const siteConfig = {
     },
     {
       id: 3,
-      text: "Improve focus on high-value work as Suna handles the routine.",
+      text: "Improve focus on high-value work as Neo 🪄 handles the routine.",
       image: "/Device-8.png",
     },
     {
@@ -730,13 +730,13 @@ export const siteConfig = {
 
         title: "Community Powered",
         description:
-          "Join a thriving community of developers and users continuously enhancing and expanding Suna's capabilities.",
+          "Join a thriving community of developers and users continuously enhancing and expanding Neo 🪄's capabilities.",
       },
     ],
   },
   quoteSection: {
     quote:
-      "Kortix Suna has transformed how we approach everyday tasks. The level of automation it provides, combined with its open source nature, makes it an invaluable tool for our entire organization.",
+      " Neo 🪄 has transformed how we approach everyday tasks. The level of automation it provides, combined with its open source nature, makes it an invaluable tool for our entire organization.",
     author: {
       name: "Alex Johnson",
       role: "CTO, Innovatech",
@@ -746,7 +746,7 @@ export const siteConfig = {
   pricing: {
     title: "Open Source & Free Forever",
     description:
-      "Kortix Suna is 100% open source and free to use. No hidden fees, no premium features locked behind paywalls.",
+      " Neo 🪄 is 100% open source and free to use. No hidden fees, no premium features locked behind paywalls.",
     pricingItems: [
       {
         name: "Community",
@@ -761,7 +761,7 @@ export const siteConfig = {
           "Community support",
         ],
         description: "Perfect for individual users and developers",
-        buttonText: "Hire Suna",
+        buttonText: "Hire Neo 🪄",
         buttonColor: "bg-accent text-primary",
         isPopular: false,
       },
@@ -904,7 +904,7 @@ export const siteConfig = {
       img: "https://randomuser.me/api/portraits/men/14.jpg",
       description: (
         <p>
-          By integrating #GreenTech&apos;s sustainable energy solutions,
+          By integrating #blueTech&apos;s sustainable energy solutions,
           we&apos;ve seen a significant reduction in carbon footprint.
           <Highlight>
             Leading the way in eco-friendly business practices.
@@ -1011,7 +1011,7 @@ export const siteConfig = {
   faqSection: {
     title: "Frequently Asked Questions",
     description:
-      "Answers to common questions about Kortix Suna and its capabilities. If you have any other questions, please don't hesitate to contact us.",
+      "Answers to common questions about  Neo 🪄 and its capabilities. If you have any other questions, please don't hesitate to contact us.",
     faQitems: [
       {
         id: 1,
@@ -1021,69 +1021,69 @@ export const siteConfig = {
       },
       {
         id: 2,
-        question: "How does Kortix Suna work?",
+        question: "How does  Neo 🪄 work?",
         answer:
-          "Kortix Suna works by analyzing your requirements, leveraging advanced AI algorithms to understand context, and executing tasks based on your instructions. It can integrate with your workflow, learn from feedback, and continuously improve its performance.",
+          " Neo 🪄 works by analyzing your requirements, leveraging advanced AI algorithms to understand context, and executing tasks based on your instructions. It can integrate with your workflow, learn from feedback, and continuously improve its performance.",
       },
       {
         id: 3,
-        question: "Is Kortix Suna really free?",
+        question: "Is  Neo 🪄 really free?",
         answer:
-          "Yes, Kortix Suna is completely free and open source. We believe in democratizing AI technology and making it accessible to everyone. You can use it, modify it, and contribute to its development without any cost.",
+          "Yes,  Neo 🪄 is completely free and open source. We believe in democratizing AI technology and making it accessible to everyone. You can use it, modify it, and contribute to its development without any cost.",
       },
       {
         id: 4,
-        question: "Can I integrate Suna with my existing tools?",
+        question: "Can I integrate Neo 🪄 with my existing tools?",
         answer:
-          "Yes, Kortix Suna is designed to be highly compatible with popular tools and platforms. We offer APIs and pre-built integrations for seamless connection with your existing workflow tools and systems.",
+          "Yes,  Neo 🪄 is designed to be highly compatible with popular tools and platforms. We offer APIs and pre-built integrations for seamless connection with your existing workflow tools and systems.",
       },
       {
         id: 5,
-        question: "How can I contribute to Kortix Suna?",
+        question: "How can I contribute to  Neo 🪄?",
         answer:
-          "You can contribute to Kortix Suna by submitting pull requests on GitHub, reporting bugs, suggesting new features, or helping with documentation. Join our Discord community to connect with other contributors and Hire Suna.",
+          "You can contribute to  Neo 🪄 by submitting pull requests on GitHub, reporting bugs, suggesting new features, or helping with documentation. Join our Discord community to connect with other contributors and Hire Neo 🪄.",
       },
       {
         id: 6,
-        question: "How does Kortix Suna save me time?",
+        question: "How does  Neo 🪄 save me time?",
         answer:
-          "Kortix Suna automates repetitive tasks, streamlines workflows, and provides quick solutions to common challenges. This automation and efficiency can save hours of manual work, allowing you to focus on more strategic activities.",
+          " Neo 🪄 automates repetitive tasks, streamlines workflows, and provides quick solutions to common challenges. This automation and efficiency can save hours of manual work, allowing you to focus on more strategic activities.",
       },
     ],
   },
   ctaSection: {
     id: "cta",
-    title: "Start Using Kortix Suna Today",
+    title: "Start Using  Neo 🪄 Today",
     backgroundImage: "/holo.png",
     button: {
-      text: "Hire Suna today",
+      text: "Hire Neo 🪄 today",
       href: "/auth",
     },
     subtext: "The generalist AI Agent that acts on your behalf",
   },
   footerLinks: [
     {
-      title: "Kortix",
+      title: "",
       links: [
-        { id: 1, title: "About", url: "https://kortix.ai" },
-        { id: 3, title: "Contact", url: "mailto:hey@kortix.ai" },
-        { id: 4, title: "Careers", url: "https://kortix.ai/careers" },
+        { id: 1, title: "About", url: "https://.ai" },
+        { id: 3, title: "Contact", url: "mailto:hey@.ai" },
+        { id: 4, title: "Careers", url: "https://.ai/careers" },
       ],
     },
     {
       title: "Resources",
       links: [
-        { id: 5, title: "Documentation", url: "https://github.com/Kortix-ai/Suna" },
+        { id: 5, title: "Documentation", url: "https://github.com/-ai/Neo 🪄" },
         { id: 7, title: "Discord", url: "https://discord.gg/Py6pCBUUPw" },
-        { id: 8, title: "GitHub", url: "https://github.com/Kortix-ai/Suna" },
+        { id: 8, title: "GitHub", url: "https://github.com/-ai/Neo 🪄" },
       ],
     },
     {
       title: "Legal",
       links: [
-        { id: 9, title: "Privacy Policy", url: "https://suna.so/legal?tab=privacy" },
-        { id: 10, title: "Terms of Service", url: "https://suna.so/legal?tab=terms" },
-        { id: 11, title: "License Apache 2.0", url: "https://github.com/Kortix-ai/Suna/blob/main/LICENSE" },
+        { id: 9, title: "Privacy Policy", url: "https://Neo 🪄.so/legal?tab=privacy" },
+        { id: 10, title: "Terms of Service", url: "https://Neo 🪄.so/legal?tab=terms" },
+        { id: 11, title: "License Apache 2.0", url: "https://github.com/-ai/Neo 🪄/blob/main/LICENSE" },
       ],
     },
   ],
@@ -1102,7 +1102,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so/share/b289e34f-68af-40aa-8b46-62c2dcefa58a"
+      url: "https://www.Neo 🪄.so/share/b289e34f-68af-40aa-8b46-62c2dcefa58a"
     },
     {
       id: "competitor-analysis",
@@ -1118,7 +1118,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so/share/792ab3ea-ab8e-4b26-b7b5-a19e2ea4c96b"
+      url: "https://www.Neo 🪄.so/share/792ab3ea-ab8e-4b26-b7b5-a19e2ea4c96b"
     },
     {
       id: "vc-list",
@@ -1133,7 +1133,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so/share/5645e4ea-3989-4977-8898-30a7e1d3c449"
+      url: "https://www.Neo 🪄.so/share/5645e4ea-3989-4977-8898-30a7e1d3c449"
     },
     {
       id: "insurance-policy",
@@ -1148,7 +1148,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so/share/1cf18fc9-3b74-4a76-a654-2d20d48c35ce"
+      url: "https://www.Neo 🪄.so/share/1cf18fc9-3b74-4a76-a654-2d20d48c35ce"
     },
     {
       id: "candidate-search",
@@ -1164,7 +1164,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so/share/2d76dff7-d7fa-4504-b685-befb0b11dd68"
+      url: "https://www.Neo 🪄.so/share/2d76dff7-d7fa-4504-b685-befb0b11dd68"
     },
     {
       id: "stock-market-report",
@@ -1181,7 +1181,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so/share/e343e2fb-55d5-4fe2-a6e3-f9e1655eb8e6"
+      url: "https://www.Neo 🪄.so/share/e343e2fb-55d5-4fe2-a6e3-f9e1655eb8e6"
     },
     {
       id: "company-trip",
@@ -1198,7 +1198,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so/share/da71b44e-cd20-42d2-8084-f03861376eab"
+      url: "https://www.Neo 🪄.so/share/da71b44e-cd20-42d2-8084-f03861376eab"
     },
     {
       id: "speaker-prospecting",
@@ -1214,7 +1214,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so/share/08a65777-41d8-44a7-95a1-ebd979ebb16e"
+      url: "https://www.Neo 🪄.so/share/08a65777-41d8-44a7-95a1-ebd979ebb16e"
     },
     {
       id: "scientific-papers",
@@ -1230,7 +1230,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so/share/aa414558-bfdf-4d7c-9b56-37dee72e4610"
+      url: "https://www.Neo 🪄.so/share/aa414558-bfdf-4d7c-9b56-37dee72e4610"
     },
     {
       id: "lead-generation",
@@ -1246,7 +1246,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so/share/cfd491ea-f3cd-42a9-a775-baff938edcef"
+      url: "https://www.Neo 🪄.so/share/cfd491ea-f3cd-42a9-a775-baff938edcef"
     }
   ],
 };

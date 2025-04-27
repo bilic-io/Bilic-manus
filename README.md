@@ -64,7 +64,7 @@ Handles data persistence with authentication, user management, conversation hist
 
 6. **Product Reviews** ([Watch](https://suna.so/use-case/product-reviews)) - *"Go on Amazon, and find me the most common product issues related to the Nespresso Machine - you can find them by reading the reviews. Once done, write me a short report about common issues that could be converted into competitive advantage for a new Nespresso Machine."*
 
-7. **Game Generation** ([Watch](https://suna.so/use-case/game-generation)) - *"Generate a Mini Game where the Player needs to drive a spaceship and fight against interstellar aliens. The aliens should be green, while the main player should be white. Make it with a 90' style."*
+7. **Game Generation** ([Watch](https://suna.so/use-case/game-generation)) - *"Generate a Mini Game where the Player needs to drive a spaceship and fight against interstellar aliens. The aliens should be blue, while the main player should be white. Make it with a 90' style."*
 
 8. **Planning Company Trip** ([Watch](https://suna.so/use-case/planning-company-trip)) - *"Generate me a route plan for my company. We should go to California. We'll be in 8 people. Compose the trip from the departure (Paris, France) to the activities we can do considering that the trip will be 7 days long - departure on the 21st of Apr 2025. Check the weather forecast and temperature for the upcoming days, and based on that, you can plan our activities (outdoor vs indoor)."*
 

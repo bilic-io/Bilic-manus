@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Briefcase, ExternalLink } from "lucide-react"
-import { KortixProcessModal } from "@/components/sidebar/kortix-enterprise-modal"
+import { ProcessModal } from "@/components/sidebar/enterprise-modal"
 
 export function CTACard() {
   return (
@@ -11,7 +11,7 @@ export function CTACard() {
         <span className="text-xs text-muted-foreground mt-0.5">AI employees for your company</span>
       </div>
       <div className="flex flex-col space-y-2">
-        <KortixProcessModal />
+        <ProcessModal />
         {/* <Link href="https://cal.com/marko-kraemer/15min" target="_blank" rel="noopener noreferrer">
           <Button 
             variant="outline" 
@@ -26,7 +26,7 @@ export function CTACard() {
       
       <div className="flex items-center mt-1">
         <Link 
-          href="https://www.kortix.ai/careers" 
+          href="https://www..ai/careers" 
           target="_blank" 
           rel="noopener noreferrer"
           className="flex items-center text-xs text-muted-foreground hover:text-foreground transition-colors"

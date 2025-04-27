@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 export const Icons = {
   logo: ({ className }: { className?: string }) => (
     <svg
-      width="42"
+      width="24"
       height="24"
       viewBox="0 0 42 24"
       fill="none"

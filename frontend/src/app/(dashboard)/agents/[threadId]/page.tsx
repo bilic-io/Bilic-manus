@@ -797,7 +797,7 @@ export default function ThreadPage({ params }: { params: Promise<ThreadParams> }
           <div className="text-xs font-medium text-muted-foreground">Tool Result</div>
           <div className={`px-2 py-0.5 rounded-full text-xs ${
             isSuccess 
-              ? 'bg-green-50 text-green-700 dark:bg-green-900 dark:text-green-300' 
+              ? 'bg-blue-50 text-blue-700 dark:bg-blue-900 dark:text-blue-300' 
               : 'bg-red-50 text-red-700 dark:bg-red-900 dark:text-red-300'
           }`}>
             {isSuccess ? 'Success' : 'Failed'}
@@ -938,18 +938,18 @@ export default function ThreadPage({ params }: { params: Promise<ThreadParams> }
   useEffect(() => {
     if (projectName) {
       // Update document title when project name changes
-      document.title = `${projectName} | Kortix Suna`;
+      document.title = `${projectName} |  Neo 🪄`;
       
       // Update meta tags for SEO
       const metaDescription = document.querySelector('meta[name="description"]');
       if (metaDescription) {
-        metaDescription.setAttribute('content', `${projectName} - Interactive agent conversation powered by Kortix Suna`);
+        metaDescription.setAttribute('content', `${projectName} - Interactive agent conversation powered by  Neo 🪄`);
       }
       
       // Update OpenGraph tags if they exist
       const ogTitle = document.querySelector('meta[property="og:title"]');
       if (ogTitle) {
-        ogTitle.setAttribute('content', `${projectName} | Kortix Suna`);
+        ogTitle.setAttribute('content', `${projectName} |  Neo 🪄`);
       }
       
       const ogDescription = document.querySelector('meta[property="og:description"]');
@@ -1406,7 +1406,7 @@ export default function ThreadPage({ params }: { params: Promise<ThreadParams> }
                         <div key={group.key} ref={groupIndex === groupedMessages.length - 1 ? latestMessageRef : null}>
                           <div className="flex items-start gap-3">
                             <div className="flex-shrink-0 w-5 h-5 mt-2 rounded-md flex items-center justify-center overflow-hidden ml-auto mr-2">
-                              <Image src="/kortix-symbol.svg" alt="Kortix" width={14} height={14} className="object-contain invert dark:invert-0 opacity-70" />
+                              <Image src="/-symbol.svg" alt="" width={14} height={14} className="object-contain invert dark:invert-0 opacity-70" />
                             </div>
                             <div className="flex-1">
                               <div className="inline-flex max-w-[90%] rounded-lg bg-muted/5 px-4 py-3 text-sm">
@@ -1533,7 +1533,7 @@ export default function ThreadPage({ params }: { params: Promise<ThreadParams> }
                     <div ref={latestMessageRef}>
                       <div className="flex items-start gap-3">
                         <div className="flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center overflow-hidden bg-primary/10">
-                          <Image src="/kortix-symbol.svg" alt="Suna" width={14} height={14} className="object-contain"/>
+                          <Image src="/-symbol.svg" alt="Neo 🪄" width={14} height={14} className="object-contain"/>
                         </div>
                         <div className="flex-1 space-y-2">
                           <div className="max-w-[90%] px-4 py-3 text-sm">
@@ -1568,7 +1568,7 @@ export default function ThreadPage({ params }: { params: Promise<ThreadParams> }
             value={newMessage}
             onChange={setNewMessage}
             onSubmit={handleSubmitMessage}
-            placeholder="Ask Suna anything..."
+            placeholder="Ask Neo 🪄 anything..."
             loading={isSending}
             disabled={isSending || agentStatus === 'running' || agentStatus === 'connecting'}
             isAgentRunning={agentStatus === 'running' || agentStatus === 'connecting'}

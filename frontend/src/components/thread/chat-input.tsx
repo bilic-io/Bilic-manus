@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
 
 // Local storage keys
-const STORAGE_KEY_MODEL = 'suna-preferred-model';
+const STORAGE_KEY_MODEL = 'Neo 🪄-preferred-model';
 
 interface ChatInputProps {
   onSubmit: (message: string, options?: { model_name?: string; enable_thinking?: boolean }) => void;
@@ -478,7 +478,7 @@ export function ChatInput({
         >
           <div className="text-xs text-muted-foreground flex items-center gap-2">
             <Loader2 className="h-3 w-3 animate-spin" />
-            <span>Kortix Suna is working...</span>
+            <span> Neo 🪄 is working...</span>
           </div>
         </motion.div>
       )}

@@ -46,7 +46,7 @@ export function WebSearchToolView({
             {isStreaming ? (
               <div className="flex-1 flex items-center justify-center">
                 <div className="text-center p-6">
-                  <CircleDashed className="h-8 w-8 mx-auto mb-3 text-blue-500 animate-spin" />
+                  <CircleDashed className="h-8 w-8 mx-auto mb-3 text-green-500 animate-spin" />
                   <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Searching the web...</p>
                   <p className="text-xs mt-1 text-zinc-500 dark:text-zinc-400">This might take a moment</p>
                 </div>
@@ -67,7 +67,7 @@ export function WebSearchToolView({
                           href={result.url} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium flex items-center gap-1"
+                          className="text-sm text-green-600 dark:text-green-400 hover:underline font-medium flex items-center gap-1"
                         >
                           {result.title}
                           <ExternalLink className="h-3 w-3 opacity-60" />
@@ -110,7 +110,7 @@ export function WebSearchToolView({
           
           {isStreaming && (
             <div className="flex items-center gap-2">
-              <CircleDashed className="h-3.5 w-3.5 text-blue-500 animate-spin" />
+              <CircleDashed className="h-3.5 w-3.5 text-green-500 animate-spin" />
               <span>Executing {toolTitle.toLowerCase()}...</span>
             </div>
           )}

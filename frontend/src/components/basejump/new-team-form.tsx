@@ -50,7 +50,7 @@ export default function NewTeamForm() {
                             required
                         />
                         {nameValue && (
-                            <Check className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-blue-500" />
+                            <Check className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-green-500" />
                         )}
                     </div>
                     <p className="text-xs text-muted-foreground">

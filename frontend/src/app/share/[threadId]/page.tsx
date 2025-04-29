@@ -126,7 +126,7 @@ function renderMarkdownContent(content: string, handleToolClick: (assistantMessa
                   let icon = <File className="h-3.5 w-3.5 text-muted-foreground" />;
                   if (isImage) icon = <File className="h-3.5 w-3.5 text-purple-500" />;
                   if (isPdf) icon = <File className="h-3.5 w-3.5 text-red-500" />;
-                  if (isMd) icon = <File className="h-3.5 w-3.5 text-blue-500" />;
+                  if (isMd) icon = <File className="h-3.5 w-3.5 text-green-500" />;
                   if (isCode) icon = <File className="h-3.5 w-3.5 text-emerald-500" />;
                   
                   return (
@@ -941,7 +941,7 @@ export default function ThreadPage({ params }: { params: Promise<ThreadParams> }
           <div className="text-xs font-medium text-muted-foreground">Tool Result</div>
           <div className={`px-2 py-0.5 rounded-full text-xs ${
             isSuccess 
-              ? 'bg-blue-50 text-blue-700 dark:bg-blue-900 dark:text-blue-300' 
+              ? 'bg-green-50 text-green-700 dark:bg-green-900 dark:text-green-300' 
               : 'bg-red-50 text-red-700 dark:bg-red-900 dark:text-red-300'
           }`}>
             {isSuccess ? 'Success' : 'Failed'}

@@ -883,7 +883,7 @@ export function FileViewerModal({
                       >
                         <div className="w-12 h-12 flex items-center justify-center mb-1">
                           {file.is_dir ? (
-                            <Folder className="h-9 w-9 text-blue-500" />
+                            <Folder className="h-9 w-9 text-green-500" />
                           ) : (
                             <File className="h-8 w-8 text-muted-foreground" />
                           )}

@@ -130,7 +130,7 @@ export function BrowserToolView({
                       href={url} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="mt-3 flex items-center text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400 hover:underline"
+                      className="mt-3 flex items-center text-green-600 dark:text-green-500 hover:text-green-500 dark:hover:text-green-400 hover:underline"
                     >
                       Visit URL <ExternalLink className="h-3 w-3 ml-1" />
                     </a>
@@ -176,7 +176,7 @@ export function BrowserToolView({
           
           {isRunning && (
             <div className="flex items-center gap-2">
-              <CircleDashed className="h-3.5 w-3.5 text-blue-500 animate-spin" />
+              <CircleDashed className="h-3.5 w-3.5 text-green-500 animate-spin" />
               <span>Executing browser action...</span>
             </div>
           )}

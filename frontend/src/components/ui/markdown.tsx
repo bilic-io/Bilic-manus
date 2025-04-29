@@ -77,7 +77,7 @@ const INITIAL_COMPONENTS: Partial<Components> = {
     return <blockquote className="border-l-4 border-muted pl-4 italic my-2 dark:text-zinc-400 dark:border-zinc-600" {...props}>{children}</blockquote>;
   },
   a: function Anchor({ children, href, ...props }: any) {
-    return <a href={href} className="text-primary hover:underline dark:text-blue-400" target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
+    return <a href={href} className="text-primary hover:underline dark:text-green-400" target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
   },
   table: function Table({ children, ...props }: any) {
     return <table className="w-full border-collapse my-3 text-sm" {...props}>{children}</table>;

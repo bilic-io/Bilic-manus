@@ -330,7 +330,7 @@ export function ChatInput({
       <div 
         className={cn(
           "flex items-end w-full rounded-lg border border-gray-200 dark:border-gray-900 bg-white dark:bg-black px-3 py-2 shadow-sm transition-all duration-200",
-          isDraggingOver ? "border-blue-200 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-950/10" : ""
+          isDraggingOver ? "border-blue-200 dark:border-blue-900 bg-green-50/50 dark:bg-green-950/10" : ""
         )}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}

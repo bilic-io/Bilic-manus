@@ -89,7 +89,7 @@ export function WebCrawlToolView({
           {isStreaming ? (
             <div className="flex-1 bg-white dark:bg-zinc-950 flex items-center justify-center">
               <div className="text-center p-6">
-                <CircleDashed className="h-8 w-8 mx-auto mb-3 text-blue-500 animate-spin" />
+                <CircleDashed className="h-8 w-8 mx-auto mb-3 text-green-500 animate-spin" />
                 <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Crawling webpage...</p>
                 <p className="text-xs mt-1 text-zinc-500 dark:text-zinc-400">Fetching content from {domain}</p>
               </div>
@@ -137,7 +137,7 @@ export function WebCrawlToolView({
           
           {isStreaming && (
             <div className="flex items-center gap-2">
-              <CircleDashed className="h-3.5 w-3.5 text-blue-500 animate-spin" />
+              <CircleDashed className="h-3.5 w-3.5 text-green-500 animate-spin" />
               <span>Executing {toolTitle.toLowerCase()}...</span>
             </div>
           )}

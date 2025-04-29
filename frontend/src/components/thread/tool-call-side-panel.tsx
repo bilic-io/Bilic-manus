@@ -398,7 +398,7 @@ export function ToolCallSidePanel({
             
             {isStreaming && (
               <div className="flex items-center gap-2">
-                <div className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400 flex items-center gap-1.5">
+                <div className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 flex items-center gap-1.5">
                   <CircleDashed className="h-3 w-3 animate-spin" />
                   <span>Running</span>
                 </div>

@@ -51,8 +51,8 @@ function ResetPasswordContent() {
               {/* Success content */}
               <div className="relative z-10 pt-24 pb-8 max-w-xl mx-auto h-full w-full flex flex-col gap-2 items-center justify-center">
                 <div className="flex flex-col items-center text-center">
-                  <div className="bg-blue-50 dark:bg-blue-950/20 rounded-full p-4 mb-6">
-                    <CheckCircle className="h-12 w-12 text-blue-500 dark:text-blue-400" />
+                  <div className="bg-green-50 dark:bg-green-950/20 rounded-full p-4 mb-6">
+                    <CheckCircle className="h-12 w-12 text-green-500 dark:text-green-400" />
                   </div>
                   
                   <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-center text-balance text-primary mb-4">

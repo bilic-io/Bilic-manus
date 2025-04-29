@@ -797,7 +797,7 @@ export default function ThreadPage({ params }: { params: Promise<ThreadParams> }
           <div className="text-xs font-medium text-muted-foreground">Tool Result</div>
           <div className={`px-2 py-0.5 rounded-full text-xs ${
             isSuccess 
-              ? 'bg-blue-50 text-blue-700 dark:bg-blue-900 dark:text-blue-300' 
+              ? 'bg-green-50 text-green-700 dark:bg-green-900 dark:text-green-300' 
               : 'bg-red-50 text-red-700 dark:bg-red-900 dark:text-red-300'
           }`}>
             {isSuccess ? 'Success' : 'Failed'}

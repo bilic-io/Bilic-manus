@@ -1102,7 +1102,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.Neo 🪄.so/share/b289e34f-68af-40aa-8b46-62c2dcefa58a"
+      url: "#"
     },
     {
       id: "competitor-analysis",
@@ -1118,7 +1118,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.Neo 🪄.so/share/792ab3ea-ab8e-4b26-b7b5-a19e2ea4c96b"
+      url: "https://www.suna.so#"
     },
     {
       id: "vc-list",
@@ -1133,7 +1133,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.Neo 🪄.so/share/5645e4ea-3989-4977-8898-30a7e1d3c449"
+      url: "#"
     },
     {
       id: "insurance-policy",
@@ -1148,7 +1148,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.Neo 🪄.so/share/1cf18fc9-3b74-4a76-a654-2d20d48c35ce"
+      url: "#"
     },
     {
       id: "candidate-search",
@@ -1164,7 +1164,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.Neo 🪄.so/share/2d76dff7-d7fa-4504-b685-befb0b11dd68"
+      url: "#"
     },
     {
       id: "stock-market-report",
@@ -1181,7 +1181,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.Neo 🪄.so/share/e343e2fb-55d5-4fe2-a6e3-f9e1655eb8e6"
+      url: "#"
     },
     {
       id: "company-trip",
@@ -1198,7 +1198,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.Neo 🪄.so/share/da71b44e-cd20-42d2-8084-f03861376eab"
+      url: "#"
     },
     {
       id: "speaker-prospecting",
@@ -1214,7 +1214,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.Neo 🪄.so/share/08a65777-41d8-44a7-95a1-ebd979ebb16e"
+      url: "#"
     },
     {
       id: "scientific-papers",
@@ -1230,7 +1230,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.Neo 🪄.so/share/aa414558-bfdf-4d7c-9b56-37dee72e4610"
+      url: "#"
     },
     {
       id: "lead-generation",
@@ -1246,7 +1246,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.Neo 🪄.so/share/cfd491ea-f3cd-42a9-a775-baff938edcef"
+      url: "#"
     }
   ],
 };

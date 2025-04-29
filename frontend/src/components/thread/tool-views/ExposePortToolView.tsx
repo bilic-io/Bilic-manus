@@ -117,13 +117,13 @@ export function ExposePortToolView({
             <div className={cn(
               "rounded-md border p-3",
               isStreaming 
-                ? 'border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/10' 
+                ? 'border-blue-200 bg-green-50 dark:border-blue-800 dark:bg-green-900/10' 
                 : isSuccess 
                   ? 'border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900' 
                   : 'border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/10'
             )}>
               {isStreaming ? (
-                <div className="flex items-center gap-2 text-xs font-medium text-blue-700 dark:text-blue-400">
+                <div className="flex items-center gap-2 text-xs font-medium text-green-700 dark:text-green-400">
                   <span>Exposing port {portNumber}...</span>
                 </div>
               ) : (
@@ -134,7 +134,7 @@ export function ExposePortToolView({
                       href={toolResult.url} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline break-all"
+                      className="text-xs font-medium text-green-600 dark:text-green-400 hover:underline break-all"
                     >
                       {toolResult.url}
                     </a>

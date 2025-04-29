@@ -426,7 +426,7 @@ export function FileOperationToolView({
             {/* Streaming state */}
             <div className="flex-1 flex items-center justify-center p-8 bg-white dark:bg-zinc-950">
               <div className="text-center">
-                <CircleDashed className="h-8 w-8 mx-auto mb-3 text-blue-500 animate-spin" />
+                <CircleDashed className="h-8 w-8 mx-auto mb-3 text-green-500 animate-spin" />
                 <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   {operation === "create" ? "Creating file..." : "Rewriting file..."}
                 </p>
@@ -459,7 +459,7 @@ export function FileOperationToolView({
           <div className="border border-zinc-200 dark:border-zinc-800 rounded-md overflow-hidden h-full flex flex-col">
             <div className="p-6 flex-1 flex flex-col items-center justify-center bg-white dark:bg-zinc-950">
               <div className="text-center">
-                <CircleDashed className="h-8 w-8 mx-auto mb-3 text-blue-500 animate-spin" />
+                <CircleDashed className="h-8 w-8 mx-auto mb-3 text-green-500 animate-spin" />
                 <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Deleting file...</p>
                 {processedFilePath && (
                   <p className="text-xs mt-2 font-mono text-zinc-500 dark:text-zinc-400 break-all">
@@ -506,7 +506,7 @@ export function FileOperationToolView({
           
           {isStreaming && (
             <div className="flex items-center gap-2">
-              <CircleDashed className="h-3.5 w-3.5 text-blue-500 animate-spin" />
+              <CircleDashed className="h-3.5 w-3.5 text-green-500 animate-spin" />
               <span>Processing file operation...</span>
             </div>
           )}

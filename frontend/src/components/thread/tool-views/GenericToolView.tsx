@@ -78,13 +78,13 @@ export function GenericToolView({
             <div className={cn(
               "rounded-md border p-3",
               isStreaming 
-                ? 'border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/10' 
+                ? 'border-blue-200 bg-green-50 dark:border-blue-800 dark:bg-green-900/10' 
                 : isSuccess 
                   ? 'border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900' 
                   : 'border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/10'
             )}>
               {isStreaming ? (
-                <div className="flex items-center gap-2 text-xs font-medium text-blue-700 dark:text-blue-400">
+                <div className="flex items-center gap-2 text-xs font-medium text-green-700 dark:text-green-400">
                   <CircleDashed className="h-3 w-3 animate-spin" />
                   <span>Executing {toolTitle.toLowerCase()}...</span>
                 </div>
@@ -114,7 +114,7 @@ export function GenericToolView({
           
           {isStreaming && (
             <div className="flex items-center gap-2">
-              <CircleDashed className="h-3.5 w-3.5 text-blue-500 animate-spin" />
+              <CircleDashed className="h-3.5 w-3.5 text-green-500 animate-spin" />
               <span>Processing...</span>
             </div>
           )}

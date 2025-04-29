@@ -106,7 +106,7 @@ export function CommandToolView({
                     <span className="text-zinc-300">{command || 'running command...'}</span>
                   </div>
                   <div className="flex items-center gap-2 text-zinc-400">
-                    <CircleDashed className="h-3 w-3 animate-spin text-blue-400" />
+                    <CircleDashed className="h-3 w-3 animate-spin text-green-400" />
                     <span>Command execution in progress...</span>
                   </div>
                 </div>
@@ -136,7 +136,7 @@ export function CommandToolView({
           
           {isStreaming && (
             <div className="flex items-center gap-2">
-              <CircleDashed className="h-3.5 w-3.5 text-blue-500 animate-spin" />
+              <CircleDashed className="h-3.5 w-3.5 text-green-500 animate-spin" />
               <span>Executing command...</span>
             </div>
           )}

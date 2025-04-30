@@ -1,11 +1,11 @@
 export const siteConfig = {
-  name: "Kortix Suna",
-  url: "https://suna.so/",
-  description: "Kortix AI",
+  name: "Neo 🪄",
+  url: "https://getneo.work/",
+  description: "Neo 🪄 is a fully open source AI assistant that helps you accomplish real-world tasks with ease through natural conversation.",
   links: {
-    twitter: "https://x.com/kortixai",
-    github: "https://github.com/kortix-ai/",
-    linkedin: "https://www.linkedin.com/company/kortix/",
+    twitter: "https://x.com/",
+    github: "https://github.com/billic-io/Bilic-manus",
+    linkedin: "https://www.linkedin.com/company//",
   },
 };
 

@@ -24,7 +24,7 @@ export function CTACard() {
         </Link> */}
       </div>
       
-      <div className="flex items-center mt-1">
+      {/* <div className="flex items-center mt-1">
         <Link 
           href="https://www..ai/careers" 
           target="_blank" 
@@ -34,7 +34,7 @@ export function CTACard() {
           <Briefcase className="mr-1.5 h-3.5 w-3.5" />
           Join Our Team! 🚀
         </Link>
-      </div>
+      </div> */}
     </div>
   )
 }

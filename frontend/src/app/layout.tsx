@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   description: "Neo 🪄 is a fully open source AI assistant that helps you accomplish real-world tasks with ease. Through natural conversation, Neo 🪄 becomes your digital companion for research, data analysis, and everyday challenges.",
   keywords: ["AI", "artificial intelligence", "browser automation", "web scraping", "file management", "AI assistant", "open source", "research", "data analysis"],
-  authors: [{ name: " Team", url: "https://Neo 🪄.so" }],
+  authors: [{ name: " Team", url: "https://getneo.work/" }],
   creator: " Team - Adam Cohen Hillel, Marko Kraemer, Domenico Gagliardi, and Quoc Dat Le",
   publisher: " Team - Adam Cohen Hillel, Marko Kraemer, Domenico Gagliardi, and Quoc Dat Le",
   category: "Technology",

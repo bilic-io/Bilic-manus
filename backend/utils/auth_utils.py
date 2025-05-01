@@ -175,3 +175,65 @@ async def get_optional_user_id(request: Request) -> Optional[str]:
         return user_id
     except PyJWTError:
         return None
+
+
+from supabase import create_client
+import os
+
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
+
+supabase = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+async def sign_up_user(email: str, password: str, additional_data: dict = None):
+    """
+    Sign up a new user using Supabase Auth.
+
+    Args:
+        email (str): User's email address.
+        password (str): User's password.
+        additional_data (dict): Additional user data to store in the database.
+
+    Returns:
+        dict: The created user's details or an error message.
+    """
+    try:
+        # Sign up the user in Supabase Auth
+        response = supabase.auth.sign_up({
+            "email": email,
+            "password": password
+        })
+
+        if response.get("error"):
+            raise HTTPException(status_code=400, detail=response["error"]["message"])
+
+        user = response.get("user")
+
+        # Optionally store additional user data in the database
+        if additional_data:
+            additional_data["user_id"] = user["id"]
+            supabase.table("users").insert(additional_data).execute()
+
+        return {"message": "User signed up successfully", "user": user}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+async def get_user_details(user_id: str):
+    """
+    Retrieve user details from the database.
+
+    Args:
+        user_id (str): The user's ID.
+
+    Returns:
+        dict: The user's details or an error message.
+    """
+    try:
+        response = supabase.table("users").select("*").eq("id", user_id).execute()
+
+        if not response.data:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        return response.data[0]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

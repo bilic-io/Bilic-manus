@@ -108,7 +108,7 @@ app.include_router(
 app.include_router(
     api_key_router,
     prefix="/api",
-    dependencies=[Depends(get_current_user)]
+    # dependencies=[Depends(get_current_user)]
 )
 
 @app.get("/api/health-check")

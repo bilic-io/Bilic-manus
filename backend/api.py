@@ -32,19 +32,7 @@ instance_id = str(uuid.uuid4())[:8]
 # Rate limiter setup
 limiter = Limiter(key_func=lambda request: request.headers.get("X-API-Key", get_remote_address(request)))
 
-# JWT and API key authentication dependencies
-async def get_current_user_from_jwt(authorization: str = Header(...)):
-    try:
-        scheme, token = authorization.split()
-        if scheme.lower() != "bearer":
-            raise HTTPException(status_code=401, detail="Invalid authentication scheme")
-        payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
-        user_id = payload.get("sub")
-        if not user_id:
-            raise HTTPException(status_code=401, detail="Invalid JWT")
-        return user_id
-    except (ValueError, JWTError):
-        raise HTTPException(status_code=401, detail="Invalid or missing JWT")
+
 
 async def get_current_user_from_api_key(x_api_key: str = Header(...)):
     api_key_hash = bcrypt.hash(x_api_key)
@@ -62,7 +50,8 @@ async def get_current_user(
     if authorization:
         # Try to authenticate using JWT
         try:
-            return await get_current_user_from_jwt(authorization)
+            # return await get_current_user_from_jwt(authorization)
+            return
         except HTTPException as jwt_exception:
             if not x_api_key:
                 raise jwt_exception  # Raise JWT error if no API key is provided
@@ -109,12 +98,12 @@ app.add_middleware(
 app.include_router(
     agent_api.router,
     prefix="/api",
-    dependencies=[Depends(get_current_user)]
+    # dependencies=[Depends(get_current_user)]
 )
 app.include_router(
     sandbox_api.router,
     prefix="/api",
-    dependencies=[Depends(get_current_user)]
+    # dependencies=[Depends(get_current_user)]
 )
 app.include_router(
     api_key_router,

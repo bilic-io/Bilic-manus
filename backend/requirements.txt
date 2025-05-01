@@ -27,4 +27,5 @@ tavily-python
 passlib
 slowapi
 python-jose
+bcrypt
 pytesseract

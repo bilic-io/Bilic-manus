@@ -24,4 +24,7 @@ daytona_sdk
 boto3
 pydantic
 tavily-python
+passlib
+slowapi
+python-jose
 pytesseract

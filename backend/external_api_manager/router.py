@@ -235,7 +235,7 @@ async def create_api_key(
         api_key_hash = bcrypt.hashpw(api_key.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         created_at = datetime.now(timezone.utc)
         
-        await supabase.table("api_keys").insert({
+        response = supabase.table("api_keys").insert({
             "id": key_id,
             "user_id": user_id,
             "api_key_hash": api_key_hash,
@@ -243,14 +243,19 @@ async def create_api_key(
             "created_at": created_at.isoformat(),
             "is_active": True
         }).execute()
-        
-        logger.info("API key created successfully")
-        return {
-            "key_id": key_id,
-            "api_key": api_key,  # Return plaintext API key only on creation
-            "created_at": created_at.isoformat(),
-            "description": data.description
-        }
+
+        # Ensure the response is not awaited unnecessarily
+        if response.status_code == 201:
+            logger.info("API key created successfully")
+            return {
+                "key_id": key_id,
+                "api_key": api_key,  # Return plaintext API key only on creation
+                "created_at": created_at.isoformat(),
+                "description": data.description
+            }
+        else:
+            logger.error(f"Unexpected response status: {response.status_code}")
+            raise HTTPException(status_code=500, detail="Failed to create API key due to unexpected response status.")
     except Exception as e:
         logger.error(f"Failed to create API key: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to create API key: {str(e)}")

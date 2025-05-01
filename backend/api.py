@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, Header, Request
+from fastapi import FastAPI, Depends, HTTPException, Header, Request, Security
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from agentpress.thread_manager import ThreadManager
@@ -54,6 +54,24 @@ async def get_current_user_from_api_key(x_api_key: str = Header(...)):
     await db.execute("UPDATE api_keys SET last_used = $1 WHERE api_key_hash = $2", datetime.now(timezone.utc), api_key_hash)
     return api_key_data["user_id"]
 
+# Combined authentication dependency
+async def get_current_user(
+    authorization: str = Header(None),
+    x_api_key: str = Header(None)
+):
+    if authorization:
+        # Try to authenticate using JWT
+        try:
+            return await get_current_user_from_jwt(authorization)
+        except HTTPException as jwt_exception:
+            if not x_api_key:
+                raise jwt_exception  # Raise JWT error if no API key is provided
+    if x_api_key:
+        # Try to authenticate using API key
+        return await get_current_user_from_api_key(x_api_key)
+    # If neither JWT nor API key is provided, raise an error
+    raise HTTPException(status_code=401, detail="Authorization header or X-API-Key must be provided")
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global thread_manager
@@ -87,21 +105,21 @@ app.add_middleware(
     allow_headers=["Content-Type", "Authorization", "X-API-Key"],
 )
 
-# Include routers with authentication dependencies
+# Include routers with the combined authentication dependency
 app.include_router(
     agent_api.router,
     prefix="/api",
-    dependencies=[Depends(get_current_user_from_api_key)]
+    dependencies=[Depends(get_current_user)]
 )
 app.include_router(
     sandbox_api.router,
     prefix="/api",
-    dependencies=[Depends(get_current_user_from_api_key)]
+    dependencies=[Depends(get_current_user)]
 )
 app.include_router(
     api_key_router,
     prefix="/api",
-    dependencies=[Depends(get_current_user_from_jwt)]
+    dependencies=[Depends(get_current_user)]
 )
 
 @app.get("/api/health-check")

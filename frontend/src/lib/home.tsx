@@ -72,7 +72,7 @@ export const siteConfig = {
     badge: "100% OPEN SOURCE",
     githubUrl: "https://github.com/-ai/Neo 🪄",
     title: "Neo 🪄, the AI Employee.",
-    description: "Neo 🪄 by  – is a generalist AI Agent that acts on your behalf.",
+    description: "Neo 🪄 is a generalist AI Agent that acts on your behalf.",
     inputPlaceholder: "Ask Neo 🪄 to...",
   },
   cloudPricingItems: [
@@ -1118,7 +1118,7 @@ export const siteConfig = {
         </svg>
       ),
       image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80",
-      url: "https://www.suna.so#"
+      url: "https://www.suna.so/share/5ee791ac-e19c-4986-a61c-6d0659d0e5bc"
     },
     {
       id: "vc-list",

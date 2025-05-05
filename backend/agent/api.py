@@ -296,7 +296,7 @@ async def start_agent(
         sandbox = await get_or_start_sandbox(sandbox_id)
     else:
         sandbox_pass = str(uuid.uuid4())
-        sandbox = create_sandbox(sandbox_pass)
+        sandbox = create_sandbox(sandbox_pass, db)
         logger.info(f"Created new sandbox with preview: {sandbox.get_preview_link(6080)}/vnc_lite.html?password={sandbox_pass}")
         sandbox_id = sandbox.id
         

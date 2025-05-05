@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timezone, timedelta
 
 from daytona_sdk import Daytona, DaytonaConfig, CreateSandboxParams, Sandbox, SessionExecuteRequest
 from daytona_api_client.models.workspace_state import WorkspaceState
@@ -7,6 +8,7 @@ from dotenv import load_dotenv
 from agentpress.tool import Tool
 from utils.logger import logger
 from utils.files_utils import clean_path
+from services.supabase import DBConnection
 
 load_dotenv()
 
@@ -34,6 +36,37 @@ else:
 
 daytona = Daytona(config)
 logger.debug("Daytona client initialized")
+
+async def cleanup_old_sandboxes(db: DBConnection, max_age_hours: int = 10):
+    """Clean up sandboxes that are older than max_age_hours."""
+    try:
+        client = await db.client
+        cutoff_time = datetime.now(timezone.utc) - timedelta(hours=max_age_hours)
+        
+        # Find projects with sandboxes older than cutoff_time
+        result = await client.table('projects').select('project_id, sandbox').execute()
+        
+        for project in result.data:
+            if not project.get('sandbox', {}).get('id'):
+                continue
+                
+            # Check if the project was created before the cutoff time
+            if datetime.fromisoformat(project.get('created_at', '')).replace(tzinfo=timezone.utc) < cutoff_time:
+                sandbox_id = project['sandbox']['id']
+                try:
+                    # Delete the sandbox
+                    sandbox = daytona.get_current_sandbox(sandbox_id)
+                    daytona.delete(sandbox)
+                    logger.info(f"Deleted old sandbox {sandbox_id} for project {project['project_id']}")
+                    
+                    # Update project to remove sandbox reference
+                    await client.table('projects').update({
+                        'sandbox': {}
+                    }).eq('project_id', project['project_id']).execute()
+                except Exception as e:
+                    logger.error(f"Error deleting old sandbox {sandbox_id}: {str(e)}")
+    except Exception as e:
+        logger.error(f"Error in cleanup_old_sandboxes: {str(e)}")
 
 async def get_or_start_sandbox(sandbox_id: str):
     """Retrieve a sandbox by ID, check its state, and start it if needed."""
@@ -83,10 +116,16 @@ def start_supervisord_session(sandbox: Sandbox):
         logger.error(f"Error starting supervisord session: {str(e)}")
         raise e
 
-def create_sandbox(password: str):
+def create_sandbox(password: str, db: DBConnection = None):
     """Create a new sandbox with all required services configured and running."""
     
     logger.info("Creating new Daytona sandbox environment")
+    
+    # Clean up old sandboxes before creating a new one
+    if db:
+        import asyncio
+        asyncio.create_task(cleanup_old_sandboxes(db))
+    
     logger.debug("Configuring sandbox with browser-use image and environment variables")
         
     sandbox = daytona.create(CreateSandboxParams(

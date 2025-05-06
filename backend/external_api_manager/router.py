@@ -341,7 +341,7 @@ async def delete_api_key(
         raise HTTPException(status_code=500, detail=f"Failed to delete API key: {str(e)}")
 
 @router.get("/api-keys/validate", status_code=status.HTTP_204_NO_CONTENT)
-@limiter.limit("20/minute")
+@limiter.limit("8/minute")
 async def validate_api_key(request: Request, user_id: str = Depends(get_current_user_from_api_key)):
     logger.info("Validating API key")
     # No content returned; reaching this point means the API key is valid

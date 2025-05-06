@@ -94,7 +94,7 @@ export function FooterSection() {
         href="https://www.youtube.com/watch?v=nuf5BF1jvjQ" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="block w-full h-48 md:h-64 relative mt-24 z-0 cursor-pointer"
+        className="block w-full h-48 md:h-64 relative mt-24 z-0 cursor-pointer" hidden
       >
         <div className="absolute inset-0 bg-gradient-to-t from-transparent to-background z-10 from-40%" />
         <div className="absolute inset-0 mx-6">

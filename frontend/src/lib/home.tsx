@@ -70,7 +70,7 @@ export const siteConfig = {
       </svg>
     ),
     badge: "100% OPEN SOURCE",
-    githubUrl: "https://github.com/-ai/Neo 🪄",
+    githubUrl: "https://github.com/bilic-io/Bilic-manus",
     title: "Neo 🪄, the AI Employee.",
     description: "Neo 🪄 is a generalist AI Agent that acts on your behalf.",
     inputPlaceholder: "Ask Neo 🪄 to...",

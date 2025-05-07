@@ -1,5 +1,5 @@
 -- Create user_sandboxes table to track user sandbox relationships
-CREATE TABLE user_sandboxes (
+CREATE TABLE public.user_sandboxes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     sandbox_id TEXT NOT NULL,
@@ -11,4 +11,4 @@ CREATE TABLE user_sandboxes (
 );
 
 -- Add index for faster lookups
-CREATE INDEX idx_user_sandboxes_user_id ON user_sandboxes(user_id);
+CREATE INDEX idx_user_sandboxes_user_id ON public.user_sandboxes(user_id);

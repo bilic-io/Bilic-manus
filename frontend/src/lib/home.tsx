@@ -72,7 +72,7 @@ export const siteConfig = {
     badge: "Try for free",
     githubUrl: "https://github.com/-ai/Neo 🪄",
     title: "Neo 🪄, the AI Employee.",
-    description: "Neo 🪄 by  – is a generalist AI Agent that acts on your behalf.",
+    description: "Neo 🪄 is a generalist AI Agent that acts on your behalf.",
     inputPlaceholder: "Ask Neo 🪄 to...",
   },
   cloudPricingItems: [

@@ -330,7 +330,7 @@ async def delete_api_key(
 ):
     logger.info("Deleting API key")
     try:
-        response = await supabase.table("api_keys").update({"is_active": False}) \
+        response = supabase.table("api_keys").update({"is_active": False}) \
             .eq("id", key_id).eq("user_id", user_id).execute()
         if not response.data:
             logger.warning("API key not found or access denied")

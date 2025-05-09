@@ -10,7 +10,7 @@ import Stripe from "https://esm.sh/stripe@11.1.0?target=deno";
 console.log("Starting billing functions...");
 
 const defaultAllowedHost = Deno.env.get("ALLOWED_HOST") || "http://localhost:3000";
-const allowedHosts = [defaultAllowedHost, "https://www.suna.so", "https://suna.so", "https://staging.suna.so"];
+const allowedHosts = [defaultAllowedHost, "https://www.getneo.work/", "https://www.getneo.work/", "https://www.getneo.work/"];
 console.log("Default allowed host:", defaultAllowedHost);
 
 export const corsHeaders = {

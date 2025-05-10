@@ -112,11 +112,19 @@ async def get_current_user_from_api_key(x_api_key: str = Header(...)) -> str:
         raise HTTPException(status_code=500, detail=f"API key validation failed: {str(e)}")
 
 # Authentication Routes
-@router.post("/signup", response_model=Token, status_code=status.HTTP_201_CREATED)
+@router.post("/signup", status_code=status.HTTP_201_CREATED)
 @limiter.limit("5/minute")
 async def signup(request: Request, user: UserCreate):
     logger.info("User signup initiated")
-    return await sign_up_user(user.email, user.password)
+    try:
+        response = await sign_up_user(user.email, user.password)
+        return response
+    except HTTPException as e:
+        logger.error(f"Signup failed: {e.detail}")
+        raise e
+    except Exception as e:
+        logger.error(f"Unexpected error during signup: {str(e)}")
+        raise HTTPException(status_code=500, detail="An unexpected error occurred during signup")
 
 @router.post("/signin", response_model=Token)
 @limiter.limit("10/minute")

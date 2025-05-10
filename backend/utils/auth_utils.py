@@ -208,7 +208,7 @@ async def sign_up_user(email: str, password: str, additional_data: dict = None):
         additional_data (dict): Additional user data to store in the database.
 
     Returns:
-        dict: The created user's details or a message about email confirmation.
+        dict: A message about email confirmation.
     """
     logger.info("User signup initiated")
     try:
@@ -219,16 +219,13 @@ async def sign_up_user(email: str, password: str, additional_data: dict = None):
             logger.warning("Signup failed: Email may already be in use")
             raise HTTPException(status_code=400, detail="Signup failed: Email may already be in use")
 
-        # Check if session is available
-        if not response.session:
-            logger.info("Signup successful, but email confirmation is required.")
-            return {
-                "message": "Signup successful. Please check your email to confirm your account.",
-                "email": response.user.email
-            }
+        # Always return email confirmation message
+        logger.info("Signup successful, but email confirmation is required.")
+        return {
+            "message": "Signup successful. Please check your email to confirm your account.",
+            "email": response.user.email
+        }
 
-        logger.info("User signed up successfully")
-        return {"access_token": response.session.access_token, "token_type": "bearer"}
     except Exception as e:
         logger.error(f"Registration failed: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Registration failed: {str(e)}")

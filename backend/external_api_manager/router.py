@@ -116,9 +116,7 @@ async def get_current_user_from_api_key(x_api_key: str = Header(...)) -> str:
 @limiter.limit("5/minute")
 async def signup(request: Request, user: UserCreate):
     logger.info("User signup initiated")
-    return sign_up_user(user.email, user.password)
-
-
+    return await sign_up_user(user.email, user.password)
 
 @router.post("/signin", response_model=Token)
 @limiter.limit("10/minute")

@@ -208,14 +208,25 @@ async def sign_up_user(email: str, password: str, additional_data: dict = None):
         additional_data (dict): Additional user data to store in the database.
 
     Returns:
-        dict: The created user's details or an error message.
+        dict: The created user's details or a message about email confirmation.
     """
     logger.info("User signup initiated")
     try:
         response = supabase.auth.sign_up({"email": email, "password": password})
+        print('response', response)
+
         if response.user is None:
             logger.warning("Signup failed: Email may already be in use")
             raise HTTPException(status_code=400, detail="Signup failed: Email may already be in use")
+
+        # Check if session is available
+        if not response.session:
+            logger.info("Signup successful, but email confirmation is required.")
+            return {
+                "message": "Signup successful. Please check your email to confirm your account.",
+                "email": response.user.email
+            }
+
         logger.info("User signed up successfully")
         return {"access_token": response.session.access_token, "token_type": "bearer"}
     except Exception as e:

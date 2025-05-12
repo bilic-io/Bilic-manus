@@ -146,7 +146,10 @@ async def signin(request: Request, user: UserCreate):
 async def logout(request: Request, user_id: str = Depends(get_current_user)):
     logger.info("User logout initiated")
     try:
-        await supabase.auth.sign_out()
+        response = await supabase.auth.sign_out()
+        if response is None:
+            logger.warning("Logout failed: No response from Supabase")
+            raise HTTPException(status_code=500, detail="Logout failed: No response from Supabase")
         logger.info("User logged out successfully")
     except Exception as e:
         logger.error(f"Logout failed: {str(e)}")
@@ -157,7 +160,12 @@ async def logout(request: Request, user_id: str = Depends(get_current_user)):
 async def password_reset_request(request: Request, data: PasswordResetRequest):
     logger.info("Password reset request initiated")
     try:
-        await supabase.auth.reset_password_for_email(data.email)
+        # Ensure the reset_password_for_email method is awaited properly
+        response = supabase.auth.reset_password_for_email(data.email)
+        if response is None:
+            logger.warning("Password reset email could not be sent")
+            return {"message": "Password reset email could not be sent. Please try again later."}
+
         logger.info("Password reset email sent successfully")
         return {"message": "Password reset email sent if the account exists"}
     except Exception as e:
@@ -169,8 +177,16 @@ async def password_reset_request(request: Request, data: PasswordResetRequest):
 async def password_reset_confirm(request: Request, data: PasswordResetConfirm):
     logger.info("Password reset confirmation initiated")
     try:
-        await supabase.auth.verify_otp({"token": data.token, "type": "recovery"})
-        await supabase.auth.update_user({"password": data.new_password})
+        response_otp = await supabase.auth.verify_otp({"token": data.token, "type": "recovery"})
+        if response_otp is None:
+            logger.warning("Password reset confirmation failed: OTP verification failed")
+            raise HTTPException(status_code=400, detail="Password reset confirmation failed: OTP verification failed")
+
+        response_update = await supabase.auth.update_user({"password": data.new_password})
+        if response_update is None:
+            logger.warning("Password reset confirmation failed: Password update failed")
+            raise HTTPException(status_code=400, detail="Password reset confirmation failed: Password update failed")
+
         logger.info("Password reset confirmed successfully")
     except Exception as e:
         logger.error(f"Password reset failed: {str(e)}")
@@ -183,7 +199,7 @@ async def get_profile(request: Request, user_id: str = Depends(get_current_user)
     logger.info("Retrieving user profile")
     try:
         user = await supabase.auth.get_user()
-        if not user.user:
+        if user is None or user.user is None:
             logger.warning("User not found")
             raise HTTPException(status_code=404, detail="User not found")
         logger.info("User profile retrieved successfully")

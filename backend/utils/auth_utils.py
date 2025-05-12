@@ -254,7 +254,7 @@ async def get_user_details(user_id: str):
         supabase.auth.session = {"access_token": token}
         user = supabase.auth.get_user()
 
-        if not user or not user.user:
+        if user is None or user.user is None:
             logger.warning("User not found")
             raise HTTPException(status_code=404, detail="User not found")
 

@@ -1,5 +1,7 @@
 .DS_Store
-
+backend/API.markdown
+backend/cua-linux/
+backend/docs.md
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

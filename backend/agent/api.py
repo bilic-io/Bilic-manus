@@ -272,6 +272,14 @@ async def start_agent(
     project_id = thread_data.get('project_id')
     account_id = thread_data.get('account_id')
     
+    # Check billing status
+    can_run, message, subscription = await check_billing_status(client, account_id)
+    if not can_run:
+        raise HTTPException(status_code=402, detail={
+            "message": message,
+            "subscription": subscription
+        })
+    
     # Check if there is already an active agent run for this project
     active_run_id = await check_for_active_project_agent_run(client, project_id)
     

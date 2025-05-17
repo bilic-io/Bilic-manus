@@ -74,15 +74,15 @@ async def run_agent(
         print(f"Running iteration {iteration_count}...")
 
         # Billing check on each iteration - still needed within the iterations
-        # can_run, message, subscription = await check_billing_status(client, account_id)
-        # if not can_run:
-        #     error_msg = f"Billing limit reached: {message}"
-        #     # Yield a special message to indicate billing limit reached
-        #     yield {
-        #         "type": "status",
-        #         "status": "stopped",
-        #         "message": error_msg
-        #     }
+        can_run, message, subscription = await check_billing_status(client, account_id)
+        if not can_run:
+            error_msg = f"Billing limit reached: {message}"
+            # Yield a special message to indicate billing limit reached
+            yield {
+                "type": "status",
+                "status": "stopped",
+                "message": error_msg
+            }
             # break
         # Check if last message is from assistant using direct Supabase query
         latest_message = await client.table('messages').select('*').eq('thread_id', thread_id).in_('type', ['assistant', 'tool', 'user']).order('created_at', desc=True).limit(1).execute()  

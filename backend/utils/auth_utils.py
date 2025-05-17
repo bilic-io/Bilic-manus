@@ -1,4 +1,6 @@
 from fastapi import HTTPException, Request, Depends
+from supabase import create_client
+import os
 from typing import Optional, List, Dict, Any
 import jwt
 from jwt.exceptions import PyJWTError
@@ -190,8 +192,6 @@ async def get_optional_user_id(request: Request) -> Optional[str]:
         return None
 
 
-from supabase import create_client
-import os
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
@@ -208,32 +208,31 @@ async def sign_up_user(email: str, password: str, additional_data: dict = None):
         additional_data (dict): Additional user data to store in the database.
 
     Returns:
-        dict: The created user's details or an error message.
+        dict: A message about email confirmation.
     """
+    logger.info("User signup initiated")
     try:
-        # Sign up the user in Supabase Auth
-        response = supabase.auth.sign_up({
-            "email": email,
-            "password": password
-        })
+        response = supabase.auth.sign_up({"email": email, "password": password})
+        print('response', response)
 
-        if response.get("error"):
-            raise HTTPException(status_code=400, detail=response["error"]["message"])
+        if response.user is None:
+            logger.warning("Signup failed: Email may already be in use")
+            raise HTTPException(status_code=400, detail="Signup failed: Email may already be in use")
 
-        user = response.get("user")
+        # Always return email confirmation message
+        logger.info("Signup successful, but email confirmation is required.")
+        return {
+            "message": "Signup successful. Please check your email to confirm your account.",
+            "email": response.user.email
+        }
 
-        # Optionally store additional user data in the database
-        if additional_data:
-            additional_data["user_id"] = user["id"]
-            supabase.table("users").insert(additional_data).execute()
-
-        return {"message": "User signed up successfully", "user": user}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Registration failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Registration failed: {str(e)}")
 
 async def get_user_details(user_id: str):
     """
-    Retrieve user details from the database.
+    Retrieve user details using Supabase Auth.
 
     Args:
         user_id (str): The user's ID.
@@ -241,12 +240,30 @@ async def get_user_details(user_id: str):
     Returns:
         dict: The user's details or an error message.
     """
+    logger.info(f"Retrieving details for user ID: {user_id}")
     try:
-        response = supabase.table("users").select("*").eq("id", user_id).execute()
+        # Generate a JWT to impersonate the user
+        secret_key = os.getenv("JWT_SECRET")
+        if not secret_key:
+            logger.error("JWT_SECRET is not set")
+            raise HTTPException(status_code=500, detail="Server configuration error")
 
-        if not response.data:
+        token = jwt.encode({"sub": user_id}, secret_key, algorithm="HS256")
+
+        # Use the generated JWT to impersonate the user
+        supabase.auth.session = {"access_token": token}
+        user = supabase.auth.get_user()
+
+        if user is None or user.user is None:
+            logger.warning("User not found")
             raise HTTPException(status_code=404, detail="User not found")
 
-        return response.data[0]
+        logger.info("User details retrieved successfully")
+        return {
+            "id": user.user.id,
+            "email": user.user.email,
+            "created_at": user.user.created_at
+        }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Failed to retrieve user details: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve user details: {str(e)}")

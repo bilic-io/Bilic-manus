@@ -12,6 +12,9 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 from jwt import decode, PyJWTError
 import logging
+import jwt
+
+from utils.auth_utils import sign_up_user  # Add this import
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -88,37 +91,40 @@ async def get_current_user(authorization: str = Header(...)) -> str:
 async def get_current_user_from_api_key(x_api_key: str = Header(...)) -> str:
     logger.info("Authenticating user via API key")
     try:
-        api_key_hash = bcrypt.hash(x_api_key)
-        response = await supabase.table("api_keys").select("user_id") \
-            .eq("api_key_hash", api_key_hash).eq("is_active", True).execute()
+        response = supabase.table("api_keys").select("user_id, api_key_hash") \
+            .eq("is_active", True).execute()
         if not response.data:
-            logger.warning("Invalid or inactive API key")
+            logger.warning("No active API keys found")
             raise HTTPException(status_code=401, detail="Invalid or inactive API key")
-        
-        user_id = response.data[0]["user_id"]
-        await supabase.table("api_keys").update({"last_used": datetime.now(timezone.utc).isoformat()}) \
-            .eq("api_key_hash", api_key_hash).execute()
-        logger.info("API key validated successfully")
-        return user_id
+
+        for record in response.data:
+            if bcrypt.checkpw(x_api_key.encode('utf-8'), record["api_key_hash"].encode('utf-8')):
+                user_id = record["user_id"]
+                supabase.table("api_keys").update({"last_used": datetime.now(timezone.utc).isoformat()}) \
+                    .eq("api_key_hash", record["api_key_hash"]).execute()
+                logger.info("API key validated successfully")
+                return user_id
+
+        logger.warning("Invalid API key")
+        raise HTTPException(status_code=401, detail="Invalid or inactive API key")
     except Exception as e:
         logger.error(f"API key validation failed: {str(e)}")
         raise HTTPException(status_code=500, detail=f"API key validation failed: {str(e)}")
 
 # Authentication Routes
-@router.post("/signup", response_model=Token, status_code=status.HTTP_201_CREATED)
+@router.post("/signup", status_code=status.HTTP_201_CREATED)
 @limiter.limit("5/minute")
 async def signup(request: Request, user: UserCreate):
     logger.info("User signup initiated")
     try:
-        response = supabase.auth.sign_up({"email": user.email, "password": user.password})
-        if response.user is None:
-            logger.warning("Signup failed: Email may already be in use")
-            raise HTTPException(status_code=400, detail="Signup failed: Email may already be in use")
-        logger.info("User signed up successfully")
-        return {"access_token": response.session.access_token, "token_type": "bearer"}
+        response = await sign_up_user(user.email, user.password)
+        return response
+    except HTTPException as e:
+        logger.error(f"Signup failed: {e.detail}")
+        raise e
     except Exception as e:
-        logger.error(f"Registration failed: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Registration failed: {str(e)}")
+        logger.error(f"Unexpected error during signup: {str(e)}")
+        raise HTTPException(status_code=500, detail="An unexpected error occurred during signup")
 
 @router.post("/signin", response_model=Token)
 @limiter.limit("10/minute")
@@ -140,7 +146,10 @@ async def signin(request: Request, user: UserCreate):
 async def logout(request: Request, user_id: str = Depends(get_current_user)):
     logger.info("User logout initiated")
     try:
-        await supabase.auth.sign_out()
+        response = await supabase.auth.sign_out()
+        if response is None:
+            logger.warning("Logout failed: No response from Supabase")
+            raise HTTPException(status_code=500, detail="Logout failed: No response from Supabase")
         logger.info("User logged out successfully")
     except Exception as e:
         logger.error(f"Logout failed: {str(e)}")
@@ -151,7 +160,12 @@ async def logout(request: Request, user_id: str = Depends(get_current_user)):
 async def password_reset_request(request: Request, data: PasswordResetRequest):
     logger.info("Password reset request initiated")
     try:
-        await supabase.auth.reset_password_for_email(data.email)
+        # Ensure the reset_password_for_email method is awaited properly
+        response = supabase.auth.reset_password_for_email(data.email)
+        if response is None:
+            logger.warning("Password reset email could not be sent")
+            return {"message": "Password reset email could not be sent. Please try again later."}
+
         logger.info("Password reset email sent successfully")
         return {"message": "Password reset email sent if the account exists"}
     except Exception as e:
@@ -163,8 +177,16 @@ async def password_reset_request(request: Request, data: PasswordResetRequest):
 async def password_reset_confirm(request: Request, data: PasswordResetConfirm):
     logger.info("Password reset confirmation initiated")
     try:
-        await supabase.auth.verify_otp({"token": data.token, "type": "recovery"})
-        await supabase.auth.update_user({"password": data.new_password})
+        response_otp = await supabase.auth.verify_otp({"token": data.token, "type": "recovery"})
+        if response_otp is None:
+            logger.warning("Password reset confirmation failed: OTP verification failed")
+            raise HTTPException(status_code=400, detail="Password reset confirmation failed: OTP verification failed")
+
+        response_update = await supabase.auth.update_user({"password": data.new_password})
+        if response_update is None:
+            logger.warning("Password reset confirmation failed: Password update failed")
+            raise HTTPException(status_code=400, detail="Password reset confirmation failed: Password update failed")
+
         logger.info("Password reset confirmed successfully")
     except Exception as e:
         logger.error(f"Password reset failed: {str(e)}")
@@ -177,7 +199,7 @@ async def get_profile(request: Request, user_id: str = Depends(get_current_user)
     logger.info("Retrieving user profile")
     try:
         user = await supabase.auth.get_user()
-        if not user.user:
+        if user is None or user.user is None:
             logger.warning("User not found")
             raise HTTPException(status_code=404, detail="User not found")
         logger.info("User profile retrieved successfully")
@@ -231,31 +253,30 @@ async def create_api_key(
     logger.info("Creating API key")
     try:
         key_id = str(uuid.uuid4())
-        api_key = secrets.token_urlsafe(32)
+        api_key = secrets.token_urlsafe(32)  # Generate the original API key
         api_key_hash = bcrypt.hashpw(api_key.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         created_at = datetime.now(timezone.utc)
-        
+
         response = supabase.table("api_keys").insert({
             "id": key_id,
             "user_id": user_id,
-            "api_key_hash": api_key_hash,
+            "api_key_hash": api_key_hash,  # Store only the hash in the database
             "description": data.description,
             "created_at": created_at.isoformat(),
             "is_active": True
         }).execute()
 
-        # Ensure the response is not awaited unnecessarily
-        if response.status_code == 201:
-            logger.info("API key created successfully")
-            return {
-                "key_id": key_id,
-                "api_key": api_key,  # Return plaintext API key only on creation
-                "created_at": created_at.isoformat(),
-                "description": data.description
-            }
-        else:
-            logger.error(f"Unexpected response status: {response.status_code}")
-            raise HTTPException(status_code=500, detail="Failed to create API key due to unexpected response status.")
+        if not response.data:
+            logger.error(f"Failed to create API key: {response}")
+            raise HTTPException(status_code=500, detail="Failed to create API key")
+
+        logger.info("API key created successfully")
+        return {
+            "key_id": key_id,
+            "api_key": api_key,  # Return the original API key in the response
+            "created_at": created_at.isoformat(),
+            "description": data.description
+        }
     except Exception as e:
         logger.error(f"Failed to create API key: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to create API key: {str(e)}")
@@ -295,8 +316,9 @@ async def regenerate_api_key(
 ):
     logger.info("Regenerating API key")
     try:
-        response = await supabase.table("api_keys").select("*").eq("id", key_id) \
+        response = supabase.table("api_keys").select("*").eq("id", key_id) \
             .eq("user_id", user_id).eq("is_active", True).execute()
+        print("resp::::::::",response)
         if not response.data:
             logger.warning("API key not found or access denied")
             raise HTTPException(status_code=404, detail="API key not found or access denied")
@@ -305,7 +327,7 @@ async def regenerate_api_key(
         api_key_hash = bcrypt.hashpw(api_key.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         created_at = datetime.now(timezone.utc)
         
-        await supabase.table("api_keys").update({
+        supabase.table("api_keys").update({
             "api_key_hash": api_key_hash,
             "created_at": created_at.isoformat()
         }).eq("id", key_id).execute()
@@ -330,7 +352,7 @@ async def delete_api_key(
 ):
     logger.info("Deleting API key")
     try:
-        response = await supabase.table("api_keys").update({"is_active": False}) \
+        response = supabase.table("api_keys").update({"is_active": False}) \
             .eq("id", key_id).eq("user_id", user_id).execute()
         if not response.data:
             logger.warning("API key not found or access denied")
@@ -340,10 +362,33 @@ async def delete_api_key(
         logger.error(f"Failed to delete API key: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to delete API key: {str(e)}")
 
-@router.get("/api-keys/validate", status_code=status.HTTP_204_NO_CONTENT)
-@limiter.limit("20/minute")
+@router.get("/api-keys/validate", response_model=dict, status_code=status.HTTP_200_OK)
+@limiter.limit("8/minute")
 async def validate_api_key(request: Request, user_id: str = Depends(get_current_user_from_api_key)):
     logger.info("Validating API key")
-    # No content returned; reaching this point means the API key is valid
-    logger.info("API key validated successfully")
-    pass
+    try:
+        # Generate a JWT to impersonate the user
+        secret_key = os.getenv("JWT_SECRET")
+        if not secret_key:
+            logger.error("JWT_SECRET is not set")
+            raise HTTPException(status_code=500, detail="Server configuration error")
+
+        token = jwt.encode({"sub": user_id}, secret_key, algorithm="HS256")
+
+        # Use the generated JWT to impersonate the user
+        supabase.auth.session = {"access_token": token}
+        user = supabase.auth.get_user()  # Removed 'await'
+
+        if not user or not user.user:
+            logger.warning("User not found")
+            raise HTTPException(status_code=404, detail="User not found")
+
+        logger.info("API key validated successfully and user details retrieved")
+        return {
+            "id": user.user.id,
+            "email": user.user.email,
+            "created_at": user.user.created_at
+        }
+    except Exception as e:
+        logger.error(f"Failed to retrieve user details: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve user details: {str(e)}")

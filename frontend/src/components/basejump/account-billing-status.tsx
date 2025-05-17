@@ -21,6 +21,7 @@ export default async function AccountBillingStatus({ accountId, returnUrl }: Pro
     });
 
     console.log("Billing Data received:", billingData);
+    console.log("billing errors", billingError)
 
     // Get current subscription details
     const { data: subscriptionData } = await supabaseClient

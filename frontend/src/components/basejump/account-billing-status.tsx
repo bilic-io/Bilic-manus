@@ -20,6 +20,8 @@ export default async function AccountBillingStatus({ accountId, returnUrl }: Pro
         }
     });
 
+    console.log("Billing Data received:", billingData);
+
     // Get current subscription details
     const { data: subscriptionData } = await supabaseClient
         .schema('basejump')

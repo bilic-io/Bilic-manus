@@ -224,7 +224,7 @@ serve(async (req) => {
                                 roleInfo,
                                 stripeHandler
                             );
-                            console.log("Billing status response:", response);
+                            console.log("Billing status response from getBillingStatus:", response);
 
                             return new Response(
                                 JSON.stringify({

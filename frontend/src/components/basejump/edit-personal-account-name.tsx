@@ -14,7 +14,7 @@ export default function EditPersonalAccountName({ account }: Props) {
             <input type="hidden" name="accountId" value={account.account_id} />
             <div className="flex flex-col gap-y-4">
                 <div className="flex flex-col gap-y-2">
-                    <Label htmlFor="name" className="text-sm font-medium text-foreground/90">
+                    <Label htmlFor="name" className="text-sm bg-none font-medium text-foreground/90">
                         Name
                     </Label>
                     <Input
@@ -23,14 +23,14 @@ export default function EditPersonalAccountName({ account }: Props) {
                         id="name"
                         placeholder="Marty Mcfly"
                         required
-                        className="h-10 rounded-lg border-subtle dark:border-white/10 bg-white dark:bg-background-secondary"
+                        className="h-10 border-subtle dark:border-white/10 rounded-2xl dark:bg-background-secondary"
                     />
                 </div>
                 <div className="flex justify-end mt-2">
                     <SubmitButton
                         formAction={editPersonalAccountName}
                         pendingText="Updating..."
-                        className="rounded-lg bg-primary hover:bg-primary/90 text-white h-10"
+                        className="h-10 border-subtle dark:border-white/10 rounded-2xl dark:bg-background-secondary cursor-pointer"
                     >
                         Save Changes
                     </SubmitButton>

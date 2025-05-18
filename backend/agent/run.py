@@ -300,7 +300,7 @@ async def process_agent_response(
     
     # Create a test sandbox for processing
     sandbox_pass = str(uuid4())
-    sandbox = create_sandbox(sandbox_pass)
+    sandbox = create_sandbox(sandbox_pass, thread_manager.db.client)
     print(f"\033[91mTest sandbox created: {str(sandbox.get_preview_link(6080))}/vnc_lite.html?password={sandbox_pass}\033[0m")
     
     async for chunk in run_agent(

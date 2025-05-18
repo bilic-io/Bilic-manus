@@ -5,7 +5,8 @@ import {createClient} from "@/lib/supabase/server";
 import AccountBillingStatus from "@/components/basejump/account-billing-status";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
-const returnUrl = process.env.NEXT_PUBLIC_URL as string;
+// Remove trailing slash from NEXT_PUBLIC_URL if it exists
+const baseUrl = process.env.NEXT_PUBLIC_URL?.replace(/\/$/, '') || '';
 
 type AccountParams = {
   accountSlug: string;
@@ -14,6 +15,7 @@ type AccountParams = {
 export default function TeamBillingPage({ params }: { params: Promise<AccountParams> }) {
     const unwrappedParams = React.use(params);
     const { accountSlug } = unwrappedParams;
+    const returnUrl = `${baseUrl}/${accountSlug}/settings/billing`;
     
     // Use an effect to load team account data
     const [teamAccount, setTeamAccount] = React.useState<any>(null);
@@ -69,7 +71,7 @@ export default function TeamBillingPage({ params }: { params: Promise<AccountPar
             
             <AccountBillingStatus 
                 accountId={teamAccount.account_id} 
-                returnUrl={`${returnUrl}/${accountSlug}/settings/billing`} 
+                returnUrl={returnUrl} 
             />
         </div>
     )

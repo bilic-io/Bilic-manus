@@ -1,4 +1,6 @@
 import os
+import uuid
+from datetime import datetime, timezone, timedelta
 
 from daytona_sdk import Daytona, DaytonaConfig, CreateSandboxParams, Sandbox, SessionExecuteRequest
 from daytona_api_client.models.workspace_state import WorkspaceState
@@ -7,6 +9,7 @@ from dotenv import load_dotenv
 from agentpress.tool import Tool
 from utils.logger import logger
 from utils.files_utils import clean_path
+from services.supabase import DBConnection
 
 load_dotenv()
 
@@ -34,6 +37,35 @@ else:
 
 daytona = Daytona(config)
 logger.debug("Daytona client initialized")
+
+async def cleanup_inactive_user_sandboxes(db: DBConnection, max_inactive_days: int = 7):
+    """Clean up sandboxes for users who haven't been active for max_inactive_days."""
+    try:
+        client = await db.client
+        cutoff_time = datetime.now(timezone.utc) - timedelta(days=max_inactive_days)
+        
+        # Find users who haven't been active since cutoff_time
+        result = await client.table('user_sandboxes').select('user_id, sandbox_id, last_active_at').execute()
+        
+        for user_sandbox in result.data:
+            if not user_sandbox.get('sandbox_id'):
+                continue
+                
+            # Check if the user has been inactive
+            if datetime.fromisoformat(user_sandbox.get('last_active_at', '')).replace(tzinfo=timezone.utc) < cutoff_time:
+                sandbox_id = user_sandbox['sandbox_id']
+                try:
+                    # Delete the sandbox
+                    sandbox = daytona.get_current_sandbox(sandbox_id)
+                    daytona.delete(sandbox)
+                    logger.info(f"Deleted inactive sandbox {sandbox_id} for user {user_sandbox['user_id']}")
+                    
+                    # Remove the sandbox record
+                    await client.table('user_sandboxes').delete().eq('user_id', user_sandbox['user_id']).execute()
+                except Exception as e:
+                    logger.error(f"Error deleting inactive sandbox {sandbox_id}: {str(e)}")
+    except Exception as e:
+        logger.error(f"Error in cleanup_inactive_user_sandboxes: {str(e)}")
 
 async def get_or_start_sandbox(sandbox_id: str):
     """Retrieve a sandbox by ID, check its state, and start it if needed."""
@@ -83,10 +115,17 @@ def start_supervisord_session(sandbox: Sandbox):
         logger.error(f"Error starting supervisord session: {str(e)}")
         raise e
 
-def create_sandbox(password: str):
+def create_sandbox(password: str, db: DBConnection = None):
     """Create a new sandbox with all required services configured and running."""
     
     logger.info("Creating new Daytona sandbox environment")
+    
+    # Clean up old sandboxes before creating a new one
+    if db:
+        import asyncio
+        logger.info("Cleaning old sandboxes ======== Checking 1 , 2 , 3 ......")
+        asyncio.create_task(cleanup_inactive_user_sandboxes(db))
+    
     logger.debug("Configuring sandbox with browser-use image and environment variables")
         
     sandbox = daytona.create(CreateSandboxParams(
@@ -174,3 +213,51 @@ class SandboxToolsBase(Tool):
         cleaned_path = clean_path(path, self.workspace_path)
         logger.debug(f"Cleaned path: {path} -> {cleaned_path}")
         return cleaned_path
+
+async def get_user_sandbox(db: DBConnection, user_id: str):
+    """Get or create a sandbox for a specific user."""
+    client = await db.client
+    
+    # Check if user already has a sandbox
+    result = await client.table('user_sandboxes').select('*').eq('user_id', user_id).execute()
+    
+    if result.data and len(result.data) > 0 and result.data[0].get('sandbox_id'):
+        # User has a sandbox, get it
+        sandbox_id = result.data[0]['sandbox_id']
+        logger.info(f"Found existing sandbox {sandbox_id} for user {user_id}")
+        
+        try:
+            # Try to get the sandbox
+            sandbox = await get_or_start_sandbox(sandbox_id)
+            
+            # Update last active timestamp
+            await client.table('user_sandboxes').update({
+                'last_active_at': datetime.now(timezone.utc).isoformat()
+            }).eq('user_id', user_id).execute()
+            
+            return sandbox, result.data[0]['sandbox_pass']
+        except Exception as e:
+            logger.error(f"Error retrieving sandbox for user {user_id}: {str(e)}")
+            # If sandbox retrieval fails, we'll create a new one below
+    
+    # Create a new sandbox for this user
+    sandbox_pass = str(uuid.uuid4())
+    sandbox = create_sandbox(sandbox_pass, db)
+    logger.info(f"Created new sandbox {sandbox.id} for user {user_id}")
+    
+    # Store sandbox info with user
+    await client.table('user_sandboxes').upsert({
+        'user_id': user_id,
+        'sandbox_id': sandbox.id,
+        'sandbox_pass': sandbox_pass,
+        'last_active_at': datetime.now(timezone.utc).isoformat()
+    }).execute()
+    
+    return sandbox, sandbox_pass
+
+async def update_user_sandbox_activity(db: DBConnection, user_id: str):
+    """Update the last_active_at timestamp for a user's sandbox."""
+    client = await db.client
+    await client.table('user_sandboxes').update({
+        'last_active_at': datetime.now(timezone.utc).isoformat()
+    }).eq('user_id', user_id).execute()

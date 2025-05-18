@@ -108,30 +108,46 @@ export function PlanComparison({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-6">
+      <div className="grid grid-cols-[auto-fill] md:grid-cols-[auto-fill] w-full gap-6">
         {plans.map((plan) => (
           <div 
             key={plan.id} 
             className="border w-full border-border rounded-[1em] p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-primary/50"
           >
-            <h3 className="text-3xl font-semibold mb-3">{plan.name}</h3>
-            <p className="text-base mb-6 text-muted-foreground">{plan.description}</p>
-            <div className="text-2xl font-bold mb-6">${plan.price}/{plan.interval}</div>
+            <h3 className="text-3xl font-semibold mb-3 cursor-default">{plan.name}</h3>
+            <p className="text-base mb-6 text-muted-foreground cursor-default">{plan.description}</p>
+            <div className="text-2xl font-bold mb-6 cursor-default">${plan.price}/{plan.interval}</div>
             <ul className="space-y-3 mb-8">
               {plan.features.map((feature, index) => (
-                <li key={index} className="text-base text-muted-foreground">- {feature}</li>
+                <li key={index} className="text-base text-muted-foreground cursor-default">- {feature}</li>
               ))}
             </ul>
-            <Button
-              className={cn(
-                "w-full py-3 rounded-[2em] cursor-pointer font-medium text-lg transition-all duration-300",
-                plan.buttonColor,
-                "hover:scale-105 hover:shadow-lg"
+            <form>
+              <input type="hidden" name="accountId" value={accountId} />
+              <input type="hidden" name="returnUrl" value={returnUrl} />
+              <input type="hidden" name="planId" value={plan.id} />
+              {isManaged ? (
+                <SubmitButton
+                  formAction={setupNewSubscription}
+                  className={cn(
+                    "w-full py-2 rounded-[2em] font-medium cursor-pointer",
+                    plan.buttonColor
+                  )}
+                >
+                  {plan.buttonText}
+                </SubmitButton>
+              ) : (
+                <Button
+                  className={cn(
+                    "w-full py-2 rounded-[2em] font-medium cursor-pointer",
+                    plan.buttonColor
+                  )}
+                  onClick={() => onPlanSelect?.(plan.id)}
+                >
+                  {plan.buttonText}
+                </Button>
               )}
-              onClick={() => onPlanSelect?.(plan.id)}
-            >
-              {plan.buttonText}
-            </Button>
+            </form>
           </div>
         ))}
       </div>

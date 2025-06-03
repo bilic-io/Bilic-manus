@@ -262,3 +262,28 @@ async def ensure_project_sandbox_active(
     except Exception as e:
         logger.error(f"Error ensuring sandbox is active for project {project_id}: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/user/sandbox/ensure-active")
+async def ensure_user_sandbox_active(
+    request: Request = None,
+    user_id: str = Depends(get_current_user_id)
+):
+    """
+    Ensure that a user's sandbox is active and running.
+    Checks the sandbox status and starts it if it's not running.
+    """
+    client = await db.client
+    
+    try:
+        # Get or create user sandbox
+        from sandbox.sandbox import get_user_sandbox
+        sandbox, _ = await get_user_sandbox(db, user_id)
+        
+        return {
+            "status": "success", 
+            "sandbox_id": sandbox.id,
+            "message": "User sandbox is active"
+        }
+    except Exception as e:
+        logger.error(f"Error ensuring user sandbox is active for user {user_id}: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))

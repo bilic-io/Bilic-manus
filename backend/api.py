@@ -75,6 +75,23 @@ async def lifespan(app: FastAPI):
     await redis.initialize_async()
     asyncio.create_task(agent_api.restore_running_agent_runs())
     
+    # Schedule regular cleanup of inactive user sandboxes
+    from sandbox.sandbox import cleanup_inactive_user_sandboxes
+    
+    async def scheduled_sandbox_cleanup():
+        while True:
+            try:
+                logger.info("Running scheduled cleanup of inactive user sandboxes")
+                await cleanup_inactive_user_sandboxes(db, max_inactive_days=7)
+                # Run once a day
+                await asyncio.sleep(86400)
+            except Exception as e:
+                logger.error(f"Error in scheduled sandbox cleanup: {str(e)}")
+                await asyncio.sleep(3600)  # Wait an hour before retrying
+    
+    # Start the scheduled cleanup task
+    asyncio.create_task(scheduled_sandbox_cleanup())
+    
     yield
     
     logger.info("Cleaning up agent resources")

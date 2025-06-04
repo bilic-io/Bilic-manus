@@ -77,6 +77,7 @@ async def lifespan(app: FastAPI):
     
     yield
     
+    
     logger.info("Cleaning up agent resources")
     await agent_api.cleanup()
     logger.info("Disconnecting from database")

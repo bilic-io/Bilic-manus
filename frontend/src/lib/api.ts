@@ -1041,6 +1041,7 @@ export const getPublicProjects = async (): Promise<Project[]> => {
 
 // Add a function to ensure user sandbox is active
 export async function ensureUserSandboxActive() {
+  const supabase = createClient();
   const { data: { session } } = await supabase.auth.getSession();
   
   if (!session?.access_token) {

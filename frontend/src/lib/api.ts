@@ -1039,3 +1039,29 @@ export const getPublicProjects = async (): Promise<Project[]> => {
   }
 };
 
+// Add a function to ensure user sandbox is active
+export async function ensureUserSandboxActive() {
+  const { data: { session } } = await supabase.auth.getSession();
+  
+  if (!session?.access_token) {
+    throw new Error('User not authenticated');
+  }
+  
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${session.access_token}`
+  };
+  
+  console.log('Ensuring user sandbox is active...');
+  const response = await fetch(`${API_URL}/user/sandbox/ensure-active`, {
+    method: 'POST',
+    headers,
+  });
+  
+  if (!response.ok) {
+    throw new Error(`Failed to ensure user sandbox is active: ${response.statusText}`);
+  }
+  
+  return await response.json();
+}
+

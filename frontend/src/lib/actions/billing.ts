@@ -10,6 +10,13 @@ export async function setupNewSubscription(prevState: any, formData: FormData) {
     const planId = formData.get("planId") as string;
     const supabaseClient = await createClient();
 
+    console.log('setupNewSubscription - Arguments:', {
+        accountId,
+        returnUrl,
+        planId,
+        NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL
+    });
+
     const { data, error } = await supabaseClient.functions.invoke('billing-functions', {
         body: {
             action: "get_new_subscription_url",
@@ -22,17 +29,25 @@ export async function setupNewSubscription(prevState: any, formData: FormData) {
         }
     });
 
+    console.log('setupNewSubscription - Response:', { data, error });
+
     if (error) {
         return await handleEdgeFunctionError(error);
     }
 
     redirect(data.url);
-};
+}
 
 export async function manageSubscription(prevState: any, formData: FormData) {
     const accountId = formData.get("accountId") as string;
     const returnUrl = formData.get("returnUrl") as string;
     const supabaseClient = await createClient();
+
+    console.log('manageSubscription - Arguments:', {
+        accountId,
+        returnUrl,
+        NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL
+    });
 
     const { data, error } = await supabaseClient.functions.invoke('billing-functions', {
         body: {
@@ -44,7 +59,7 @@ export async function manageSubscription(prevState: any, formData: FormData) {
         }
     });
 
-    console.log(data);
+    console.log('manageSubscription - Response:', { data, error });
     
     if (error) {
         console.error(error);
@@ -52,4 +67,4 @@ export async function manageSubscription(prevState: any, formData: FormData) {
     }
 
     redirect(data.url);
-};
+}

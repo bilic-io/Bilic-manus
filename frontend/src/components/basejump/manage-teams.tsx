@@ -13,7 +13,7 @@ export default async function ManageTeams() {
     const teams: any[] = data?.filter((team: any) => team.personal_account === false);
 
     return (
-        <Card className="border-subtle dark:border-white/10 bg-white dark:bg-background-secondary shadow-none rounded-xl">
+        <Card className="border-subtle dark:border-white/10 dark:bg-background-secondary shadow-none rounded-xl">
             <CardHeader className="pb-3">
                 <CardTitle className="text-base text-card-title">Your Teams</CardTitle>
                 <CardDescription className="text-foreground/70">

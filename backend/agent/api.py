@@ -263,9 +263,9 @@ async def start_agent(
     # Verify user has access to this thread
     await verify_thread_access(client, thread_id, user_id)
     
-    # Get the project_id and account_id for this thread
-    thread_result = await client.table('threads').select('project_id', 'account_id').eq('thread_id', thread_id).execute()
-    if not thread_result.data:
+    # Get thread data
+    thread_result = await client.table('threads').select('*').eq('thread_id', thread_id).execute()
+    if not thread_result.data or len(thread_result.data) == 0:
         raise HTTPException(status_code=404, detail="Thread not found")
     
     thread_data = thread_result.data[0]
@@ -288,18 +288,13 @@ async def start_agent(
         logger.info(f"Stopping existing agent run {active_run_id} before starting new one")
         await stop_agent_run(active_run_id)
 
-    # Initialize or get sandbox for this project
+    # Get or create user sandbox
+    from sandbox.sandbox import get_user_sandbox, update_user_sandbox_activity
+    sandbox, sandbox_pass = await get_user_sandbox(db, user_id)
+    
+    # Update project with sandbox info if needed
     project = await client.table('projects').select('*').eq('project_id', project_id).execute()
-    if project.data[0].get('sandbox', {}).get('id'):
-        sandbox_id = project.data[0]['sandbox']['id']
-        sandbox_pass = project.data[0]['sandbox']['pass']
-        sandbox = await get_or_start_sandbox(sandbox_id)
-    else:
-        sandbox_pass = str(uuid.uuid4())
-        sandbox = create_sandbox(sandbox_pass)
-        logger.info(f"Created new sandbox with preview: {sandbox.get_preview_link(6080)}/vnc_lite.html?password={sandbox_pass}")
-        sandbox_id = sandbox.id
-        
+    if not project.data[0].get('sandbox', {}).get('id'):
         # Get preview links
         vnc_link = sandbox.get_preview_link(6080)
         website_link = sandbox.get_preview_link(8080)
@@ -317,7 +312,7 @@ async def start_agent(
         
         await client.table('projects').update({
             'sandbox': {
-                'id': sandbox_id,
+                'id': sandbox.id,
                 'pass': sandbox_pass,
                 'vnc_preview': vnc_url,
                 'sandbox_url': website_url,
@@ -325,6 +320,7 @@ async def start_agent(
             }
         }).eq('project_id', project_id).execute()
     
+    # Create agent run record
     agent_run = await client.table('agent_runs').insert({
         "thread_id": thread_id,
         "status": "running",
@@ -355,6 +351,7 @@ async def start_agent(
             instance_id=instance_id,
             project_id=project_id,
             sandbox=sandbox,
+            user_id=user_id,  # Pass user_id for activity tracking
             model_name=MODEL_NAME_ALIASES.get(body.model_name, body.model_name), 
             enable_thinking=body.enable_thinking,
             reasoning_effort=body.reasoning_effort,
@@ -493,6 +490,7 @@ async def run_agent_background(
     instance_id: str,
     project_id: str,
     sandbox,
+    user_id: str,  # Add user_id parameter
     model_name: str,
     enable_thinking: Optional[bool],
     reasoning_effort: Optional[str],
@@ -502,6 +500,10 @@ async def run_agent_background(
     """Run the agent in the background and handle status updates."""
     logger.debug(f"Starting background agent run: {agent_run_id} for thread: {thread_id} (instance: {instance_id}) with model={model_name}, thinking={enable_thinking}, effort={reasoning_effort}, stream={stream}, context_manager={enable_context_manager}")
     client = await db.client
+    
+    # Update user sandbox activity timestamp
+    from sandbox.sandbox import update_user_sandbox_activity
+    await update_user_sandbox_activity(db, user_id)
     
     # Tracking variables
     total_responses = 0

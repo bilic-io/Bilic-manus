@@ -36,7 +36,7 @@ prometheus-client
 langfuse
 httpx
 Pillow
-sentry-sdk[fastapi]
+sentry-sdk
 mcp
 mcp_use
 aiohttp

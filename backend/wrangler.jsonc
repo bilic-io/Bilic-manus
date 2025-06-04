@@ -1,5 +1,6 @@
 {
-  "name": "neo-web-backend",
+  "name": "neo-web",
   "main": "api.py",
-  "compatibility_date": "2024-04-01"
+  "compatibility_date": "2024-04-01",
+  "compatibility_flags": ["python_compat"]
 }
